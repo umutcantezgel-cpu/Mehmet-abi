@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "id": "https://www.memobaut.de/contracts/manifest.webspec",
+  "version": "1.0.0",
+  "name": "Memo-BauT Website",
+  "description": "Contract-driven specification for Memo-BauT Garten- und Landschaftsbau website",
+
+  "meta": {
+    "company": {
+      "name": "Memo - BauT",
+      "legalName": "Memo - BauT, Inh. Mehmet Tezgel",
+      "type": "LocalBusiness",
+      "industry": "Garten- und Landschaftsbau",
+      "founded": "2003",
+      "url": "https://www.memobaut.de",
+      "logo": "/assets/logo.svg"
+    },
+    "contact": {
+      "address": {
+        "street": "Falkenstraße 9",
+        "postalCode": "35614",
+        "city": "Werdorf",
+        "country": "DE"
+      },
+      "phone": "+49 176 70162293",
+      "email": "info@memobaut.de",
+      "geo": {
+        "latitude": "50.5865",
+        "longitude": "8.4931"
+      }
+    },
+    "serviceArea": {
+      "type": "GeoCircle",
+      "centerPoint": "Werdorf",
+      "radius": "30km",
+      "locations": ["Werdorf", "Aßlar", "Wetzlar", "Herborn", "Gießen"]
+    },
+    "openingHours": {
+      "monday": "09:00-18:00",
+      "tuesday": "09:00-18:00",
+      "wednesday": "09:00-18:00",
+      "thursday": "09:00-18:00",
+      "friday": "09:00-18:00",
+      "saturday": "09:00-16:00",
+      "sunday": "closed"
+    }
+  },
+
+  "performance": {
+    "budgets": {
+      "coreWebVitals": {
+        "LCP": {
+          "target": 1800,
+          "max": 2500,
+          "unit": "ms",
+          "percentile": 75
+        },
+        "INP": {
+          "target": 150,
+          "max": 200,
+          "unit": "ms",
+          "percentile": 75
+        },
+        "CLS": {
+          "target": 0.08,
+          "max": 0.1,
+          "unit": "score"
+        }
+      },
+      "assets": {
+        "js": {
+          "perPage": 35,
+          "total": 100,
+          "unit": "KB",
+          "compression": "gzip"
+        },
+        "css": {
+          "perPage": 45,
+          "total": 150,
+          "unit": "KB",
+          "compression": "gzip"
+        },
+        "fonts": {
+          "total": 200,
+          "unit": "KB",
+          "format": "woff2"
+        },
+        "images": {
+          "hero": 300,
+          "gallery": 400,
+          "thumbnail": 50,
+          "unit": "KB",
+          "formats": ["webp", "avif", "jpg"]
+        }
+      },
+      "lighthouse": {
+        "performance": 95,
+        "accessibility": 95,
+        "bestPractices": 100,
+        "seo": 100,
+        "device": "mobile"
+      }
+    }
+  },
+
+  "security": {
+    "csp": {
+      "default-src": ["'self'"],
+      "script-src": ["'self'"],
+      "style-src": ["'self'", "https://fonts.googleapis.com"],
+      "font-src": ["'self'", "https://fonts.gstatic.com"],
+      "img-src": ["'self'", "data:", "https:"],
+      "connect-src": ["'self'"],
+      "frame-src": ["'self'", "https://www.google.com"],
+      "object-src": ["'none'"],
+      "base-uri": ["'self'"],
+      "form-action": ["'self'"],
+      "frame-ancestors": ["'none'"],
+      "upgrade-insecure-requests": true
+    },
+    "headers": {
+      "HSTS": {
+        "max-age": 63072000,
+        "includeSubDomains": true,
+        "preload": true
+      },
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()"
+    },
+    "sri": {
+      "enabled": true,
+      "algorithms": ["sha384", "sha512"],
+      "manifest": "/integrity.manifest.json"
+    },
+    "trustedTypes": {
+      "enabled": false,
+      "reportOnly": true
+    }
+  },
+
+  "consent": {
+    "policy": "opt-in",
+    "banner": {
+      "enabled": true,
+      "position": "bottom",
+      "categories": {
+        "necessary": {
+          "required": true,
+          "default": true
+        },
+        "analytics": {
+          "required": false,
+          "default": false
+        },
+        "marketing": {
+          "required": false,
+          "default": false
+        }
+      }
+    },
+    "twoClick": {
+      "enabled": true,
+      "services": ["googleMaps", "youtube"]
+    }
+  },
+
+  "features": {
+    "i18n": {
+      "enabled": false,
+      "defaultLocale": "de-DE",
+      "locales": ["de-DE"],
+      "strategy": "prefix_except_default"
+    },
+    "pwa": {
+      "enabled": false,
+      "offline": true,
+      "manifest": "/manifest.json"
+    },
+    "analytics": {
+      "enabled": false,
+      "provider": "none",
+      "consentRequired": true
+    },
+    "forms": {
+      "provider": "netlify",
+      "honeypot": true,
+      "validation": "html5",
+      "successPage": "/danke"
+    },
+    "search": {
+      "enabled": false
+    }
+  },
+
+  "quality": {
+    "gates": {
+      "deployment": {
+        "lighthouse": {
+          "performance": 95,
+          "accessibility": 95,
+          "bestPractices": 100,
+          "seo": 100
+        },
+        "a11y": {
+          "criticalViolations": 0,
+          "seriousViolations": 0,
+          "tool": "axe"
+        },
+        "security": {
+          "headers": "A",
+          "vulnerabilities": 0
+        },
+        "links": {
+          "brokenLinks": 0
+        },
+        "build": {
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    }
+  },
+
+  "monitoring": {
+    "slo": {
+      "availability": {
+        "target": 99.9,
+        "period": "30d"
+      },
+      "performance": {
+        "LCP_p75": 2500,
+        "INP_p75": 200,
+        "CLS_p75": 0.1
+      },
+      "a11y": {
+        "criticalViolations": 0
+      }
+    },
+    "alerts": {
+      "availability": {
+        "threshold": 99.5,
+        "window": "5m"
+      },
+      "performance": {
+        "LCP_p75": 3000,
+        "window": "1h"
+      }
+    }
+  },
+
+  "build": {
+    "framework": "astro",
+    "version": "4.16.0",
+    "output": "static",
+    "integrations": ["tailwind", "sitemap"],
+    "baseDir": "memobaut",
+    "outDir": "dist",
+    "command": "npm run build",
+    "environment": {
+      "node": ">=18.0.0",
+      "npm": ">=9.0.0"
+    }
+  }
+}

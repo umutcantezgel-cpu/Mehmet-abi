@@ -1,0 +1,376 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogType?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical = `https://www.memobaut.de${Astro.url.pathname}`,
+  ogType = 'website',
+  ogImage = 'https://www.memobaut.de/assets/og-image.jpg',
+  noindex = false,
+} = Astro.props;
+
+const siteName = 'Memo-BauT Garten- und Landschaftsbau';
+const fullTitle = title.includes('Memo-BauT') ? title : `${title} | ${siteName}`;
+
+// Company data for Schema.org
+const companyData = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': 'https://www.memobaut.de/#organization',
+  name: 'Memo - BauT',
+  legalName: 'Memo - BauT, Inh. Mehmet Tezgel',
+  url: 'https://www.memobaut.de',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.memobaut.de/assets/logo.svg',
+  },
+  image: ogImage,
+  description: description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Falkenstraße 9',
+    postalCode: '35614',
+    addressLocality: 'Werdorf',
+    addressRegion: 'Hessen',
+    addressCountry: 'DE',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: '50.5865',
+    longitude: '8.4931',
+  },
+  telephone: '+49 176 70162293',
+  email: 'info@memobaut.de',
+  priceRange: '€€',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: '09:00',
+      closes: '16:00',
+    },
+  ],
+  areaServed: {
+    '@type': 'GeoCircle',
+    geoMidpoint: {
+      '@type': 'GeoCoordinates',
+      latitude: '50.5865',
+      longitude: '8.4931',
+    },
+    geoRadius: '30000',
+  },
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {!noindex && <meta name="robots" content="index, follow" />}
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="de_DE" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#2e7d46" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(companyData)} />
+
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Skip to Content (Accessibility) -->
+    <a href="#main-content" class="skip-link focus-ring">
+      Zum Hauptinhalt springen
+    </a>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-40 no-print">
+      <nav
+        class="container-custom py-4 md:py-6"
+        role="navigation"
+        aria-label="Hauptnavigation"
+      >
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <a
+            href="/"
+            class="text-2xl font-bold text-primary-700 hover:text-primary-900 focus-ring rounded-lg transition-colors"
+            aria-label="Zurück zur Startseite"
+          >
+            <span class="text-gradient">Memo-BauT</span>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <ul class="hidden md:flex items-center gap-2 glass-nav">
+            <li>
+              <a
+                href="/leistungen"
+                class="px-4 py-2 rounded-full text-gray-700 hover:text-primary-700 hover:bg-white/50 focus-ring transition-all"
+              >
+                Leistungen
+              </a>
+            </li>
+            <li>
+              <a
+                href="/ueber-uns"
+                class="px-4 py-2 rounded-full text-gray-700 hover:text-primary-700 hover:bg-white/50 focus-ring transition-all"
+              >
+                Über uns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/referenzen"
+                class="px-4 py-2 rounded-full text-gray-700 hover:text-primary-700 hover:bg-white/50 focus-ring transition-all"
+              >
+                Referenzen
+              </a>
+            </li>
+            <li>
+              <a
+                href="/kontakt"
+                class="btn-primary ml-4"
+                aria-label="Kontaktieren Sie uns"
+              >
+                Kontakt
+              </a>
+            </li>
+          </ul>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden glass-nav focus-ring"
+            aria-label="Menü öffnen"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden mt-4 glass-dark rounded-2xl p-6 animate-slide-down"
+          role="menu"
+        >
+          <ul class="space-y-2">
+            <li>
+              <a
+                href="/leistungen"
+                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
+                role="menuitem"
+              >
+                Leistungen
+              </a>
+            </li>
+            <li>
+              <a
+                href="/ueber-uns"
+                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
+                role="menuitem"
+              >
+                Über uns
+              </a>
+            </li>
+            <li>
+              <a
+                href="/referenzen"
+                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
+                role="menuitem"
+              >
+                Referenzen
+              </a>
+            </li>
+            <li>
+              <a
+                href="/kontakt"
+                class="block btn-primary w-full text-center"
+                role="menuitem"
+              >
+                Kontakt
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="flex-1 pt-24 md:pt-32">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-transparent to-primary-950 text-white mt-16 no-print">
+      <div class="container-custom py-12 md:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <!-- Company Info -->
+          <div>
+            <h2 class="text-2xl font-bold mb-4 text-gradient-white">Memo-BauT</h2>
+            <p class="text-primary-100 mb-4">
+              Ihr Partner für professionellen Garten- und Landschaftsbau in Mittelhessen.
+            </p>
+            <p class="text-sm text-primary-200">Seit 2003</p>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Kontakt</h3>
+            <ul class="space-y-2 text-primary-100">
+              <li>
+                <a
+                  href="tel:+4917670162293"
+                  class="hover:text-white focus-ring rounded transition-colors"
+                >
+                  +49 176 70162293
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@memobaut.de"
+                  class="hover:text-white focus-ring rounded transition-colors"
+                >
+                  info@memobaut.de
+                </a>
+              </li>
+              <li class="pt-2">
+                Falkenstraße 9<br />
+                35614 Werdorf
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Rechtliches</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="/impressum"
+                  class="text-primary-100 hover:text-white focus-ring rounded transition-colors"
+                >
+                  Impressum
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/datenschutz"
+                  class="text-primary-100 hover:text-white focus-ring rounded transition-colors"
+                >
+                  Datenschutz
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-primary-800 text-center text-primary-200 text-sm">
+          <p>© {new Date().getFullYear()} Memo-BauT. Alle Rechte vorbehalten.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+          mobileMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Scroll to top on page load (for accessibility)
+      window.addEventListener('load', () => {
+        window.scrollTo(0, 0);
+      });
+
+      // Intersection Observer for scroll animations
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "id": "https://www.memobaut.de/contracts/events.catalog",
+  "version": "1.0.0",
+  "description": "Event catalog for Memo-BauT website (CloudEvents-inspired)",
+
+  "events": {
+    "page.view": {
+      "type": "com.memobaut.page.view",
+      "description": "Fired when a page is viewed",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "title": { "type": "string" },
+          "referrer": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["path", "timestamp"]
+      },
+      "consent": "none",
+      "privacy": "anonymous"
+    },
+
+    "consent.updated": {
+      "type": "com.memobaut.consent.updated",
+      "description": "Fired when user updates consent preferences",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "necessary": { "type": "boolean" },
+          "analytics": { "type": "boolean" },
+          "marketing": { "type": "boolean" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["necessary", "timestamp"]
+      },
+      "consent": "none",
+      "privacy": "pseudonymous",
+      "storage": "localStorage"
+    },
+
+    "form.submitted": {
+      "type": "com.memobaut.form.submitted",
+      "description": "Fired when a form is successfully submitted",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "formId": { "type": "string" },
+          "formType": { "type": "string", "enum": ["contact", "newsletter", "quote"] },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "success": { "type": "boolean" }
+        },
+        "required": ["formId", "formType", "timestamp"]
+      },
+      "consent": "necessary",
+      "privacy": "anonymous"
+    },
+
+    "form.validation.failed": {
+      "type": "com.memobaut.form.validation.failed",
+      "description": "Fired when form validation fails",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "formId": { "type": "string" },
+          "field": { "type": "string" },
+          "error": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["formId", "timestamp"]
+      },
+      "consent": "none",
+      "privacy": "anonymous"
+    },
+
+    "map.loaded": {
+      "type": "com.memobaut.map.loaded",
+      "description": "Fired when user consents to load Google Maps",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "timestamp": { "type": "string", "format": "date-time" },
+          "location": { "type": "string" }
+        },
+        "required": ["timestamp"]
+      },
+      "consent": "analytics",
+      "privacy": "pseudonymous",
+      "thirdParty": true,
+      "provider": "google"
+    },
+
+    "navigation.clicked": {
+      "type": "com.memobaut.navigation.clicked",
+      "description": "Fired when user clicks navigation link",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "link": { "type": "string" },
+          "label": { "type": "string" },
+          "destination": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["link", "timestamp"]
+      },
+      "consent": "analytics",
+      "privacy": "anonymous"
+    },
+
+    "cta.clicked": {
+      "type": "com.memobaut.cta.clicked",
+      "description": "Fired when user clicks a call-to-action button",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "ctaId": { "type": "string" },
+          "ctaText": { "type": "string" },
+          "ctaLocation": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["ctaId", "timestamp"]
+      },
+      "consent": "analytics",
+      "privacy": "anonymous"
+    },
+
+    "error.occurred": {
+      "type": "com.memobaut.error.occurred",
+      "description": "Fired when a JavaScript error occurs",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "stack": { "type": "string" },
+          "source": { "type": "string" },
+          "line": { "type": "number" },
+          "column": { "type": "number" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["message", "timestamp"]
+      },
+      "consent": "necessary",
+      "privacy": "pseudonymous",
+      "severity": "error"
+    },
+
+    "performance.cwv": {
+      "type": "com.memobaut.performance.cwv",
+      "description": "Fired when Core Web Vitals are measured",
+      "dataSchema": {
+        "type": "object",
+        "properties": {
+          "metric": { "type": "string", "enum": ["LCP", "INP", "CLS", "FCP", "TTFB"] },
+          "value": { "type": "number" },
+          "rating": { "type": "string", "enum": ["good", "needs-improvement", "poor"] },
+          "page": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["metric", "value", "timestamp"]
+      },
+      "consent": "analytics",
+      "privacy": "anonymous"
+    }
+  },
+
+  "handlers": {
+    "console": {
+      "enabled": true,
+      "events": ["error.occurred"],
+      "minSeverity": "warn"
+    },
+    "analytics": {
+      "enabled": false,
+      "consentRequired": true,
+      "events": ["page.view", "cta.clicked", "navigation.clicked", "performance.cwv"]
+    },
+    "monitoring": {
+      "enabled": false,
+      "events": ["error.occurred", "performance.cwv"]
+    }
+  }
+}

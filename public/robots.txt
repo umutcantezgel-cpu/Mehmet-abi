@@ -1,0 +1,12 @@
+# www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Disallow legal pages from indexing
+Disallow: /impressum
+Disallow: /datenschutz
+Disallow: /404
+
+# Sitemap
+Sitemap: https://www.memobaut.de/sitemap-index.xml

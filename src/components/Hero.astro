@@ -1,0 +1,128 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  backgroundImage?: string;
+  height?: 'normal' | 'tall' | 'full';
+}
+
+const {
+  title,
+  subtitle,
+  ctaText = 'Jetzt Beratung anfragen',
+  ctaLink = '/kontakt',
+  backgroundImage = '/assets/hero-garden.jpg',
+  height = 'normal',
+} = Astro.props;
+
+const heightClasses = {
+  normal: 'min-h-[60vh] md:min-h-[70vh]',
+  tall: 'min-h-[80vh] md:min-h-[90vh]',
+  full: 'min-h-screen',
+};
+---
+
+<section
+  class={`relative ${heightClasses[height]} flex items-center justify-center overflow-hidden`}
+  id="hero"
+  data-bg-image={backgroundImage}
+>
+  <!-- Background with Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary-900/60 via-primary-800/50 to-primary-950/70 z-0"></div>
+
+  <!-- Animated Background Pattern -->
+  <div class="absolute inset-0 opacity-10 z-0">
+    <div class="absolute top-10 left-10 w-72 h-72 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl animate-float"></div>
+    <div class="absolute bottom-10 right-10 w-72 h-72 bg-primary-600 rounded-full mix-blend-multiply filter blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl animate-float" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="container-custom relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Glassmorphism Card -->
+      <div class="glass-dark p-8 md:p-12 lg:p-16 rounded-3xl animate-scale-in">
+        <h1 class="text-white mb-6 drop-shadow-lg">
+          {title}
+        </h1>
+
+        {subtitle && (
+          <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto font-light">
+            {subtitle}
+          </p>
+        )}
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href={ctaLink} class="btn-primary text-lg px-8 py-4 shadow-smooth-lg">
+            {ctaText}
+            <svg
+              class="w-5 h-5 ml-2 inline-block"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </a>
+
+          <a href="#leistungen" class="btn-secondary text-lg px-8 py-4">
+            Mehr erfahren
+          </a>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="mt-12 pt-8 border-t border-white/20">
+          <div class="grid grid-cols-3 gap-6 md:gap-12">
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-white mb-2">20+</div>
+              <div class="text-sm md:text-base text-white/80">Jahre Erfahrung</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-white mb-2">500+</div>
+              <div class="text-sm md:text-base text-white/80">Projekte</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-bold text-white mb-2">100%</div>
+              <div class="text-sm md:text-base text-white/80">Kundenzufriedenheit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+    <svg class="w-6 h-6 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
+</section>
+
+<style>
+  #hero {
+    background-image: var(--hero-bg-image, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>
+
+<script>
+  // Set background image via CSS variable to avoid CSP issues
+  const hero = document.getElementById('hero');
+  if (hero) {
+    const bgImage = hero.getAttribute('data-bg-image');
+    if (bgImage) {
+      hero.style.setProperty('--hero-bg-image', `url('${bgImage}')`);
+    }
+  }
+</script>

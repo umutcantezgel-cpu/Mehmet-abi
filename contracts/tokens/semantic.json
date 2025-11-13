@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "id": "https://www.memobaut.de/contracts/tokens/semantic",
+  "version": "1.0.0",
+  "tier": 2,
+  "description": "Semantic design tokens - contextual meanings mapped to primitives",
+  "extends": "./primitives.json",
+
+  "color": {
+    "brand": {
+      "primary": {
+        "value": "{color.green.600}",
+        "type": "color",
+        "reference": "primitives.color.green.600"
+      },
+      "primaryHover": {
+        "value": "{color.green.700}",
+        "type": "color",
+        "reference": "primitives.color.green.700"
+      },
+      "primaryActive": {
+        "value": "{color.green.800}",
+        "type": "color",
+        "reference": "primitives.color.green.800"
+      },
+      "secondary": {
+        "value": "{color.brown.600}",
+        "type": "color",
+        "reference": "primitives.color.brown.600"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "{color.gray.900}",
+        "type": "color",
+        "reference": "primitives.color.gray.900",
+        "wcag": {
+          "contrast": "15.3:1",
+          "level": "AAA"
+        }
+      },
+      "secondary": {
+        "value": "{color.gray.700}",
+        "type": "color",
+        "reference": "primitives.color.gray.700",
+        "wcag": {
+          "contrast": "8.59:1",
+          "level": "AAA"
+        }
+      },
+      "muted": {
+        "value": "{color.gray.500}",
+        "type": "color",
+        "reference": "primitives.color.gray.500",
+        "wcag": {
+          "contrast": "4.68:1",
+          "level": "AA"
+        }
+      },
+      "inverse": {
+        "value": "{color.white}",
+        "type": "color",
+        "reference": "primitives.color.white"
+      },
+      "onPrimary": {
+        "value": "{color.white}",
+        "type": "color",
+        "reference": "primitives.color.white",
+        "comment": "Text on primary brand color"
+      }
+    },
+    "surface": {
+      "base": {
+        "value": "{color.white}",
+        "type": "color",
+        "reference": "primitives.color.white"
+      },
+      "elevated": {
+        "value": "{color.gray.50}",
+        "type": "color",
+        "reference": "primitives.color.gray.50"
+      },
+      "overlay": {
+        "value": "rgba(0, 0, 0, 0.5)",
+        "type": "color"
+      }
+    },
+    "background": {
+      "primary": {
+        "value": "{color.white}",
+        "type": "color",
+        "reference": "primitives.color.white"
+      },
+      "secondary": {
+        "value": "{color.gray.50}",
+        "type": "color",
+        "reference": "primitives.color.gray.50"
+      },
+      "accent": {
+        "value": "{color.green.50}",
+        "type": "color",
+        "reference": "primitives.color.green.50"
+      }
+    },
+    "border": {
+      "default": {
+        "value": "{color.gray.200}",
+        "type": "color",
+        "reference": "primitives.color.gray.200"
+      },
+      "muted": {
+        "value": "{color.gray.100}",
+        "type": "color",
+        "reference": "primitives.color.gray.100"
+      },
+      "focus": {
+        "value": "{color.green.600}",
+        "type": "color",
+        "reference": "primitives.color.green.600"
+      }
+    },
+    "state": {
+      "success": {
+        "value": "{color.green.600}",
+        "type": "color",
+        "reference": "primitives.color.green.600"
+      },
+      "warning": {
+        "value": "#f59e0b",
+        "type": "color"
+      },
+      "error": {
+        "value": "#ef4444",
+        "type": "color"
+      },
+      "info": {
+        "value": "#3b82f6",
+        "type": "color"
+      }
+    }
+  },
+
+  "typography": {
+    "heading": {
+      "h1": {
+        "fontSize": { "value": "{fontSize.5xl}", "reference": "primitives.fontSize.5xl" },
+        "fontWeight": { "value": "{fontWeight.bold}", "reference": "primitives.fontWeight.bold" },
+        "lineHeight": { "value": "{lineHeight.tight}", "reference": "primitives.lineHeight.tight" },
+        "fontFamily": { "value": "{fontFamily.sans}", "reference": "primitives.fontFamily.sans" }
+      },
+      "h2": {
+        "fontSize": { "value": "{fontSize.4xl}", "reference": "primitives.fontSize.4xl" },
+        "fontWeight": { "value": "{fontWeight.bold}", "reference": "primitives.fontWeight.bold" },
+        "lineHeight": { "value": "{lineHeight.tight}", "reference": "primitives.lineHeight.tight" },
+        "fontFamily": { "value": "{fontFamily.sans}", "reference": "primitives.fontFamily.sans" }
+      },
+      "h3": {
+        "fontSize": { "value": "{fontSize.3xl}", "reference": "primitives.fontSize.3xl" },
+        "fontWeight": { "value": "{fontWeight.semibold}", "reference": "primitives.fontWeight.semibold" },
+        "lineHeight": { "value": "{lineHeight.snug}", "reference": "primitives.lineHeight.snug" },
+        "fontFamily": { "value": "{fontFamily.sans}", "reference": "primitives.fontFamily.sans" }
+      },
+      "h4": {
+        "fontSize": { "value": "{fontSize.2xl}", "reference": "primitives.fontSize.2xl" },
+        "fontWeight": { "value": "{fontWeight.semibold}", "reference": "primitives.fontWeight.semibold" },
+        "lineHeight": { "value": "{lineHeight.snug}", "reference": "primitives.lineHeight.snug" },
+        "fontFamily": { "value": "{fontFamily.sans}", "reference": "primitives.fontFamily.sans" }
+      }
+    },
+    "body": {
+      "large": {
+        "fontSize": { "value": "{fontSize.lg}", "reference": "primitives.fontSize.lg" },
+        "lineHeight": { "value": "{lineHeight.relaxed}", "reference": "primitives.lineHeight.relaxed" }
+      },
+      "base": {
+        "fontSize": { "value": "{fontSize.base}", "reference": "primitives.fontSize.base" },
+        "lineHeight": { "value": "{lineHeight.normal}", "reference": "primitives.lineHeight.normal" }
+      },
+      "small": {
+        "fontSize": { "value": "{fontSize.sm}", "reference": "primitives.fontSize.sm" },
+        "lineHeight": { "value": "{lineHeight.normal}", "reference": "primitives.lineHeight.normal" }
+      }
+    }
+  },
+
+  "layout": {
+    "container": {
+      "maxWidth": { "value": "1280px", "type": "dimension" },
+      "padding": { "value": "{spacing.4}", "reference": "primitives.spacing.4" },
+      "paddingLarge": { "value": "{spacing.6}", "reference": "primitives.spacing.6" }
+    },
+    "section": {
+      "paddingY": { "value": "{spacing.16}", "reference": "primitives.spacing.16" },
+      "paddingYLarge": { "value": "{spacing.24}", "reference": "primitives.spacing.24" }
+    },
+    "gap": {
+      "small": { "value": "{spacing.2}", "reference": "primitives.spacing.2" },
+      "medium": { "value": "{spacing.4}", "reference": "primitives.spacing.4" },
+      "large": { "value": "{spacing.8}", "reference": "primitives.spacing.8" }
+    }
+  },
+
+  "elevation": {
+    "card": {
+      "shadow": { "value": "{shadow.lg}", "reference": "primitives.shadow.lg" },
+      "hoverShadow": { "value": "{shadow.xl}", "reference": "primitives.shadow.xl" }
+    },
+    "modal": {
+      "shadow": { "value": "{shadow.2xl}", "reference": "primitives.shadow.2xl" }
+    }
+  },
+
+  "interaction": {
+    "focus": {
+      "ring": {
+        "width": { "value": "2px", "type": "dimension" },
+        "offset": { "value": "2px", "type": "dimension" },
+        "color": { "value": "{color.brand.primary}", "reference": "semantic.color.brand.primary" }
+      }
+    },
+    "transition": {
+      "fast": { "value": "{duration.fast} {easing.easeOut}", "reference": "primitives.duration.fast, primitives.easing.easeOut" },
+      "base": { "value": "{duration.base} {easing.easeOut}", "reference": "primitives.duration.base, primitives.easing.easeOut" }
+    }
+  },
+
+  "accessibility": {
+    "minTouchTarget": {
+      "width": { "value": "44px", "type": "dimension", "comment": "WCAG 2.2 AA minimum" },
+      "height": { "value": "44px", "type": "dimension", "comment": "WCAG 2.2 AA minimum" }
+    },
+    "skipLink": {
+      "position": { "value": "absolute", "type": "string" },
+      "zIndex": { "value": "{zIndex.tooltip}", "reference": "primitives.zIndex.tooltip" }
+    }
+  }
+}

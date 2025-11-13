@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FeatureSection from '../components/FeatureSection.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+
+const features = [
+  {
+    icon: '🌱',
+    title: 'Nachhaltig',
+    description: 'Umweltfreundliche Materialien und naturnahe Gestaltung für langlebige Ergebnisse.',
+  },
+  {
+    icon: '⚡',
+    title: 'Zuverlässig',
+    description: 'Pünktliche Umsetzung und professionelle Ausführung durch erfahrene Fachkräfte.',
+  },
+  {
+    icon: '✓',
+    title: 'Qualität',
+    description: 'Maurermeister-Expertise und über 20 Jahre Erfahrung im Gartenbau.',
+  },
+];
+
+const services = [
+  {
+    title: 'Gartengestaltung',
+    description: 'Von der Planung bis zur Umsetzung – wir gestalten Ihren Traumgarten mit professionellem Know-how und kreativen Ideen.',
+    icon: '🌿',
+    link: '/leistungen#gartengestaltung',
+  },
+  {
+    title: 'Pflasterarbeiten',
+    description: 'Hochwertige Pflasterungen für Einfahrten, Terrassen und Wege. Präzise Verlegung mit jahrzehntelanger Erfahrung.',
+    icon: '🏗️',
+    link: '/leistungen#pflasterarbeiten',
+  },
+  {
+    title: 'Mauerbau',
+    description: 'Natursteinmauern, Stützmauern und Trockenmauern. Maurermeister-Qualität für dauerhafte Stabilität.',
+    icon: '🧱',
+    link: '/leistungen#mauerbau',
+  },
+  {
+    title: 'Erdarbeiten',
+    description: 'Professionelle Erdarbeiten, Aushub und Geländemodellierung mit moderner Technik.',
+    icon: '🚜',
+    link: '/leistungen#erdarbeiten',
+  },
+  {
+    title: 'Gartenpflege',
+    description: 'Regelmäßige Pflege und Wartung Ihrer Außenanlagen für dauerhaft gepflegte Gärten.',
+    icon: '🌻',
+    link: '/leistungen#gartenpflege',
+  },
+  {
+    title: 'Teichbau',
+    description: 'Individuelle Gartenteiche und Wasserspiele – von der Planung bis zur Bepflanzung.',
+    icon: '💧',
+    link: '/leistungen#teichbau',
+  },
+];
+---
+
+<BaseLayout
+  title="Memo-BauT – Garten- und Landschaftsbau in Werdorf & Mittelhessen"
+  description="Professioneller Garten- und Landschaftsbau in Werdorf, Aßlar, Wetzlar. Gartengestaltung, Pflasterarbeiten, Mauerbau mit 20+ Jahren Erfahrung."
+>
+  <!-- Hero Section -->
+  <Hero
+    title="Ihr Garten. Unsere Leidenschaft."
+    subtitle="Professioneller Garten- und Landschaftsbau in Werdorf & Umgebung seit über 20 Jahren."
+    height="tall"
+  />
+
+  <!-- Features Section -->
+  <FeatureSection
+    title="Warum Memo-BauT?"
+    subtitle="Qualität, Erfahrung und Kundenzufriedenheit seit 2003"
+    features={features}
+  />
+
+  <!-- Services Section -->
+  <section class="section bg-gradient-to-b from-transparent to-primary-50/30" id="leistungen">
+    <div class="container-custom">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2 class="text-gradient mb-6">Unsere Leistungen</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Von der Gartenplanung bis zur Pflege – wir bieten alle Leistungen rund um Ihren Garten aus einer Hand.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <ServiceCard {...service} />
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12 animate-on-scroll">
+        <a href="/leistungen" class="btn-primary text-lg px-8 py-4">
+          Alle Leistungen ansehen
+          <svg
+            class="w-5 h-5 ml-2 inline-block"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+          <div class="glass-card p-8 md:p-12 rounded-3xl">
+            <div class="aspect-[4/3] bg-gradient-to-br from-primary-400 to-primary-700 rounded-2xl flex items-center justify-center text-white text-6xl">
+              🏡
+            </div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll">
+          <h2 class="text-gradient mb-6">Tradition trifft Innovation</h2>
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            Seit über 20 Jahren gestalten wir Gärten und Außenanlagen in Werdorf, Aßlar, Wetzlar und Umgebung.
+            Als Maurermeister-Betrieb verbinden wir traditionelles Handwerk mit modernen Techniken.
+          </p>
+          <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+            Unser Einsatzgebiet erstreckt sich auf einen Umkreis von 30 km um Werdorf.
+            Wir legen Wert auf persönliche Beratung, faire Preise und termingerechte Umsetzung.
+          </p>
+
+          <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="glass rounded-xl p-6">
+              <div class="text-3xl font-bold text-primary-700 mb-2">20+</div>
+              <div class="text-gray-600">Jahre Erfahrung</div>
+            </div>
+            <div class="glass rounded-xl p-6">
+              <div class="text-3xl font-bold text-primary-700 mb-2">500+</div>
+              <div class="text-gray-600">Zufriedene Kunden</div>
+            </div>
+          </div>
+
+          <a href="/ueber-uns" class="btn-secondary">
+            Mehr über uns erfahren
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section bg-gradient-to-br from-primary-700 to-primary-900 text-white">
+    <div class="container-custom text-center">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-white mb-6">Bereit für Ihr Projekt?</h2>
+        <p class="text-xl text-primary-100 mb-8">
+          Lassen Sie uns gemeinsam Ihren Traumgarten verwirklichen.
+          Kontaktieren Sie uns für eine kostenlose Erstberatung.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/kontakt" class="btn bg-white text-primary-700 hover:bg-primary-50 text-lg px-8 py-4">
+            Kontakt aufnehmen
+          </a>
+          <a href="tel:+4917670162293" class="btn glass-dark text-white border-white/30 hover:bg-white/20 text-lg px-8 py-4">
+            📞 +49 176 70162293
+          </a>
+        </div>
+
+        <p class="mt-8 text-primary-200 text-sm">
+          Einsatzgebiet: 30 km um Werdorf (Aßlar, Wetzlar, Herborn, Gießen)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consent Banner -->
+  <ConsentBanner />
+</BaseLayout>

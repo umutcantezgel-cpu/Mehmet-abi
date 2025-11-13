@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+
+const services = [
+  {
+    id: 'gartengestaltung',
+    title: 'Gartengestaltung',
+    icon: '🌿',
+    description: 'Individuelle Gartenplanung und -gestaltung nach Ihren Wünschen. Von modernen Designgärten bis zu naturnahen Landschaftsgärten – wir setzen Ihre Vision um.',
+    details: [
+      'Gartenplanung und Beratung',
+      'Pflanzungen und Beet-Gestaltung',
+      'Rasenanlage und Rollrasen',
+      'Hochbeete und Gemüsegärten',
+    ],
+  },
+  {
+    id: 'pflasterarbeiten',
+    title: 'Pflasterarbeiten',
+    icon: '🏗️',
+    description: 'Professionelle Pflasterung für Einfahrten, Terrassen und Wege. Wir verarbeiten Naturstein, Betonpflaster und Klinker in höchster Qualität.',
+    details: [
+      'Einfahrten und Parkplätze',
+      'Terrassen und Sitzplätze',
+      'Gartenwege und Plätze',
+      'Treppenanlagen',
+    ],
+  },
+  {
+    id: 'mauerbau',
+    title: 'Mauerbau',
+    icon: '🧱',
+    description: 'Maurermeister-Expertise für Gartenmauern jeder Art. Stützmauern, Natursteinmauern oder moderne Sichtschutzmauern – solide gebaut für Generationen.',
+    details: [
+      'Natursteinmauern',
+      'Trockenmauern',
+      'Stützmauern',
+      'Sichtschutzmauern',
+    ],
+  },
+  {
+    id: 'erdarbeiten',
+    title: 'Erd- & Tiefbau',
+    icon: '🚜',
+    description: 'Grundlegende Erdarbeiten für Ihr Bauprojekt. Aushub, Geländemodellierung und Fundamentarbeiten mit moderner Technik.',
+    details: [
+      'Aushubarbeiten',
+      'Geländemodellierung',
+      'Drainage und Entwässerung',
+      'Fundamentarbeiten',
+    ],
+  },
+  {
+    id: 'gartenpflege',
+    title: 'Gartenpflege',
+    icon: '🌻',
+    description: 'Regelmäßige Pflege und Wartung Ihrer Außenanlagen. Damit Ihr Garten dauerhaft gepflegt und schön bleibt.',
+    details: [
+      'Rasenpflege und Mähen',
+      'Heckenschnitt',
+      'Beetpflege',
+      'Winterdienst (optional)',
+    ],
+  },
+  {
+    id: 'teichbau',
+    title: 'Teichbau',
+    icon: '💧',
+    description: 'Individuelle Gartenteiche und Wasserspiele. Von der Planung über den Bau bis zur Bepflanzung – alles aus einer Hand.',
+    details: [
+      'Naturteiche',
+      'Schwimmteiche',
+      'Bachläufe',
+      'Wasserspiele und Brunnen',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Leistungen – Gartenbau, Pflaster & Mauerbau"
+  description="Gartenpflege, Erd- & Tiefbau, Pflasterarbeiten, Mauerbau – alle Leistungen aus einer Hand. Maurermeister-Expertise seit 2003."
+>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] flex items-center justify-center bg-gradient-to-br from-primary-700 to-primary-900">
+    <div class="container-custom text-center">
+      <h1 class="text-white mb-6 drop-shadow-lg">Unsere Leistungen</h1>
+      <p class="text-xl text-primary-100 max-w-2xl mx-auto">
+        Professioneller Garten- und Landschaftsbau – von der Planung bis zur Pflege
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${index * 100}ms`} id={service.id}>
+            <div class="card-gradient h-full">
+              <div class="mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center text-white text-3xl shadow-smooth">
+                  {service.icon}
+                </div>
+              </div>
+
+              <h2 class="text-2xl font-bold text-gray-900 mb-4">{service.title}</h2>
+              <p class="text-gray-600 leading-relaxed mb-6">{service.description}</p>
+
+              <ul class="space-y-2 mb-6">
+                {service.details.map((detail) => (
+                  <li class="flex items-start gap-2 text-gray-700">
+                    <svg class="w-5 h-5 text-primary-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a href="/kontakt" class="btn-primary w-full text-center">
+                Jetzt anfragen
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="section bg-gradient-to-b from-transparent to-primary-50/30">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="text-gradient mb-6">Unser Ablauf</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Von der ersten Beratung bis zur Abnahme – transparent und professionell
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        {[
+          { step: '1', title: 'Beratung', desc: 'Kostenlose Erstberatung vor Ort' },
+          { step: '2', title: 'Planung', desc: 'Detaillierte Planung und Angebot' },
+          { step: '3', title: 'Umsetzung', desc: 'Professionelle Ausführung' },
+          { step: '4', title: 'Abnahme', desc: 'Gemeinsame Endabnahme' },
+        ].map((item, index) => (
+          <div class="glass-card text-center animate-on-scroll" style={`animation-delay: ${index * 150}ms`}>
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+              {item.step}
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+            <p class="text-gray-600">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="glass-card p-12 text-center max-w-3xl mx-auto">
+        <h2 class="text-gradient mb-6">Projekt anfragen</h2>
+        <p class="text-lg text-gray-600 mb-8">
+          Lassen Sie uns gemeinsam Ihr Projekt besprechen. Kostenlose Erstberatung und unverbindliches Angebot.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/kontakt" class="btn-primary">
+            Kontaktformular
+          </a>
+          <a href="tel:+4917670162293" class="btn-secondary">
+            📞 Direkt anrufen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

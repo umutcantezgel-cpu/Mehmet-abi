@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Über uns – 20 Jahre Gartenbau-Expertise"
+  description="Tradition trifft Innovation. Seit 2003 Ihr Partner für Garten- und Landschaftsbau in Mittelhessen. Maurermeister Mehmet Tezgel."
+>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] flex items-center justify-center bg-gradient-to-br from-primary-700 to-primary-900">
+    <div class="container-custom text-center">
+      <h1 class="text-white mb-6 drop-shadow-lg">Über uns</h1>
+      <p class="text-xl text-primary-100 max-w-2xl mx-auto">
+        Tradition trifft Innovation seit über 20 Jahren
+      </p>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+          <div class="glass-card p-12 rounded-3xl">
+            <div class="aspect-square bg-gradient-to-br from-primary-400 to-primary-700 rounded-2xl flex items-center justify-center text-white text-8xl">
+              👨‍🌾
+            </div>
+          </div>
+        </div>
+
+        <div class="animate-on-scroll">
+          <h2 class="text-gradient mb-6">Unsere Geschichte</h2>
+          <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+            Gegründet im Jahr 2003 von Maurermeister Mehmet Tezgel, hat sich Memo-BauT zu einem
+            führenden Anbieter für Garten- und Landschaftsbau in Mittelhessen entwickelt.
+          </p>
+          <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+            Was als kleiner Handwerksbetrieb begann, ist heute ein Team von erfahrenen Fachkräften,
+            die mit Leidenschaft und Expertise Gärten und Außenanlagen gestalten.
+          </p>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Unser Erfolgsrezept: Persönliche Beratung, hochwertige Materialien und handwerkliche
+            Perfektion – kombiniert mit fairen Preisen und Termintreue.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="section bg-gradient-to-b from-transparent to-primary-50/30">
+    <div class="container-custom">
+      <div class="text-center mb-16">
+        <h2 class="text-gradient mb-6">Unsere Werte</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Was uns ausmacht und wofür wir stehen
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: '🎯',
+            title: 'Qualität',
+            description: 'Maurermeister-Expertise und höchste Ansprüche an Material und Ausführung.'
+          },
+          {
+            icon: '🤝',
+            title: 'Zuverlässigkeit',
+            description: 'Pünktliche Umsetzung und transparente Kommunikation während des gesamten Projekts.'
+          },
+          {
+            icon: '💚',
+            title: 'Nachhaltigkeit',
+            description: 'Umweltfreundliche Materialien und naturnahe Gestaltung für langlebige Ergebnisse.'
+          },
+          {
+            icon: '⭐',
+            title: 'Kundenzufriedenheit',
+            description: 'Ihre Zufriedenheit ist unser Erfolg – darum legen wir Wert auf persönliche Betreuung.'
+          },
+          {
+            icon: '🛠️',
+            title: 'Handwerkskunst',
+            description: 'Traditionelles Handwerk kombiniert mit modernen Techniken und Maschinen.'
+          },
+          {
+            icon: '📍',
+            title: 'Regional',
+            description: 'Verwurzelt in Mittelhessen – kurze Wege und lokale Expertise.'
+          },
+        ].map((value, index) => (
+          <div class="glass-card text-center animate-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <div class="text-5xl mb-4">{value.icon}</div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
+            <p class="text-gray-600 leading-relaxed">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-gradient mb-6">Unser Team</h2>
+        <p class="text-lg text-gray-600 mb-12 leading-relaxed">
+          Ein eingespieltes Team aus erfahrenen Garten- und Landschaftsbauern, Maurern und Helfern.
+          Jedes Projekt profitiert von unserem gebündelten Know-how und unserer Leidenschaft für schöne Gärten.
+        </p>
+
+        <div class="glass-card p-8 md:p-12">
+          <div class="mb-6">
+            <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center text-white text-4xl mx-auto shadow-smooth">
+              👔
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Mehmet Tezgel</h3>
+          <p class="text-primary-700 font-semibold mb-4">Inhaber & Maurermeister</p>
+          <p class="text-gray-600 leading-relaxed">
+            Mit über 20 Jahren Erfahrung im Garten- und Landschaftsbau leitet Mehmet Tezgel
+            jedes Projekt persönlich und steht für Qualität und Kundenzufriedenheit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section bg-gradient-to-br from-primary-700 to-primary-900 text-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {[
+          { number: '20+', label: 'Jahre Erfahrung' },
+          { number: '500+', label: 'Projekte umgesetzt' },
+          { number: '30km', label: 'Einsatzradius' },
+          { number: '100%', label: 'Kundenzufriedenheit' },
+        ].map((stat) => (
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold mb-2">{stat.number}</div>
+            <div class="text-primary-100">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container-custom">
+      <div class="glass-card p-12 text-center max-w-3xl mx-auto">
+        <h2 class="text-gradient mb-6">Lernen Sie uns kennen</h2>
+        <p class="text-lg text-gray-600 mb-8">
+          Vereinbaren Sie einen unverbindlichen Beratungstermin und überzeugen Sie sich selbst von unserer Expertise.
+        </p>
+        <a href="/kontakt" class="btn-primary">
+          Kontakt aufnehmen
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  features: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+}
+
+const { title, subtitle, features } = Astro.props;
+---
+
+<section class="section">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-gradient mb-6">{title}</h2>
+      {subtitle && (
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          {subtitle}
+        </p>
+      )}
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div
+          class="glass-card text-center animate-on-scroll"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <!-- Icon -->
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full text-white text-4xl mb-6 shadow-smooth">
+            {feature.icon}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-bold text-gray-900 mb-4">
+            {feature.title}
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

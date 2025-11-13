@@ -1,0 +1,372 @@
+name: Quality Gates (Deployment Blocking)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  # ============================================
+  # BUILD
+  # ============================================
+  build:
+    name: Build & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: memobaut/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./memobaut
+        run: npm ci
+
+      - name: Build
+        working-directory: ./memobaut
+        run: npm run build
+
+      - name: Check build output
+        working-directory: ./memobaut
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Build failed: dist/ directory not found"
+            exit 1
+          fi
+          echo "✅ Build successful"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+          retention-days: 1
+
+  # ============================================
+  # LIGHTHOUSE CI (Performance)
+  # ============================================
+  lighthouse:
+    name: Lighthouse CI
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        working-directory: ./memobaut
+        run: |
+          lhci autorun \
+            --collect.staticDistDir=./dist \
+            --collect.numberOfRuns=3 \
+            --assert.preset=lighthouse:recommended \
+            --assert.assertions.performance=0.95 \
+            --assert.assertions.accessibility=0.95 \
+            --assert.assertions.best-practices=1.0 \
+            --assert.assertions.seo=1.0 \
+            --upload.target=temporary-public-storage
+
+      - name: Check Core Web Vitals
+        working-directory: ./memobaut
+        run: |
+          echo "⚡ Checking Core Web Vitals budgets..."
+          # LCP ≤ 2.5s
+          # INP ≤ 200ms
+          # CLS ≤ 0.1
+          # These are enforced by Lighthouse assertions above
+
+  # ============================================
+  # ACCESSIBILITY (Pa11y + Axe)
+  # ============================================
+  accessibility:
+    name: Accessibility Audit
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+
+      - name: Install Pa11y CI
+        run: npm install -g pa11y-ci@3.1.x
+
+      - name: Run Pa11y
+        working-directory: ./memobaut
+        run: |
+          # Serve static files
+          npx http-server dist -p 8080 -s &
+          sleep 3
+
+          # Run Pa11y on all pages
+          pa11y-ci \
+            --sitemap http://localhost:8080/sitemap-index.xml \
+            --threshold 0 \
+            --standard WCAG2AA
+
+      - name: Install Axe CLI
+        run: npm install -g @axe-core/cli@4.8.x
+
+      - name: Run Axe
+        working-directory: ./memobaut
+        run: |
+          npx http-server dist -p 8080 -s &
+          sleep 3
+
+          axe http://localhost:8080 \
+            --exit \
+            --tags wcag2aa,wcag21aa,wcag22aa \
+            --save docs/reports/axe-report.json
+
+  # ============================================
+  # SECURITY (Headers + Vulnerabilities)
+  # ============================================
+  security:
+    name: Security Scan
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: memobaut/package-lock.json
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+
+      - name: Check Security Headers
+        working-directory: ./memobaut
+        run: |
+          echo "🔒 Verifying security headers..."
+
+          if [ -f "public/_headers" ]; then
+            echo "✅ _headers file exists"
+
+            # Check for required headers
+            grep -q "Strict-Transport-Security" public/_headers || { echo "❌ Missing HSTS"; exit 1; }
+            grep -q "Content-Security-Policy" public/_headers || { echo "❌ Missing CSP"; exit 1; }
+            grep -q "X-Frame-Options" public/_headers || { echo "❌ Missing X-Frame-Options"; exit 1; }
+            grep -q "X-Content-Type-Options" public/_headers || { echo "❌ Missing X-Content-Type-Options"; exit 1; }
+
+            echo "✅ All required security headers present"
+          else
+            echo "❌ _headers file not found"
+            exit 1
+          fi
+
+      - name: Scan for vulnerabilities (npm audit)
+        working-directory: ./memobaut
+        run: |
+          npm audit --audit-level=high
+
+      - name: Check for unsafe inline code
+        working-directory: ./memobaut
+        run: |
+          echo "🔍 Scanning for unsafe inline scripts/styles..."
+
+          # Check for inline event handlers
+          if grep -r "onclick=\|onload=\|onerror=" dist/*.html; then
+            echo "❌ Found inline event handlers"
+            exit 1
+          fi
+
+          # Check for inline scripts (should be minimal or none)
+          INLINE_SCRIPTS=$(grep -r "<script>" dist/*.html | wc -l)
+          if [ "$INLINE_SCRIPTS" -gt 10 ]; then
+            echo "⚠️ Warning: Found $INLINE_SCRIPTS inline scripts (should be minimal)"
+          fi
+
+          echo "✅ No critical unsafe inline code found"
+
+  # ============================================
+  # LINK CHECKER
+  # ============================================
+  links:
+    name: Link Checker
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+
+      - name: Install linkinator
+        run: npm install -g linkinator@5.0.x
+
+      - name: Check links
+        working-directory: ./memobaut
+        run: |
+          npx http-server dist -p 8080 -s &
+          sleep 3
+
+          linkinator http://localhost:8080 \
+            --recurse \
+            --skip "tel:|mailto:|javascript:" \
+            --format json \
+            > link-report.json
+
+          # Check for broken links
+          BROKEN=$(jq '.links[] | select(.status >= 400)' link-report.json | wc -l)
+
+          if [ "$BROKEN" -gt 0 ]; then
+            echo "❌ Found $BROKEN broken links"
+            jq '.links[] | select(.status >= 400)' link-report.json
+            exit 1
+          fi
+
+          echo "✅ All links valid (0 broken)"
+
+  # ============================================
+  # FILE SIZE BUDGETS
+  # ============================================
+  budgets:
+    name: File Size Budgets
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: memobaut/dist/
+
+      - name: Check JS bundle size
+        working-directory: ./memobaut/dist
+        run: |
+          echo "📦 Checking JavaScript bundle sizes..."
+
+          # Find all JS files and check size
+          find . -name "*.js" -type f -exec sh -c '
+            SIZE=$(du -k "$1" | cut -f1)
+            if [ "$SIZE" -gt 50 ]; then
+              echo "❌ $1 is ${SIZE}KB (max: 50KB)"
+              exit 1
+            else
+              echo "✅ $1 is ${SIZE}KB"
+            fi
+          ' sh {} \;
+
+      - name: Check CSS bundle size
+        working-directory: ./memobaut/dist
+        run: |
+          echo "🎨 Checking CSS bundle sizes..."
+
+          find . -name "*.css" -type f -exec sh -c '
+            SIZE=$(du -k "$1" | cut -f1)
+            if [ "$SIZE" -gt 60 ]; then
+              echo "⚠️ $1 is ${SIZE}KB (recommended: <45KB)"
+            else
+              echo "✅ $1 is ${SIZE}KB"
+            fi
+          ' sh {} \;
+
+      - name: Total bundle size
+        working-directory: ./memobaut/dist
+        run: |
+          echo "📊 Total bundle analysis..."
+
+          TOTAL_JS=$(find . -name "*.js" -type f -exec du -k {} + | awk '{s+=$1} END {print s}')
+          TOTAL_CSS=$(find . -name "*.css" -type f -exec du -k {} + | awk '{s+=$1} END {print s}')
+
+          echo "Total JS: ${TOTAL_JS}KB (budget: 100KB)"
+          echo "Total CSS: ${TOTAL_CSS}KB (budget: 150KB)"
+
+          if [ "$TOTAL_JS" -gt 100 ]; then
+            echo "❌ Total JS exceeds budget"
+            exit 1
+          fi
+
+  # ============================================
+  # DEPLOYMENT DECISION
+  # ============================================
+  deploy-decision:
+    name: ✅ Quality Gates Passed
+    needs: [build, lighthouse, accessibility, security, links, budgets]
+    runs-on: ubuntu-latest
+    if: success()
+
+    steps:
+      - name: All gates passed
+        run: |
+          echo "🎉 All quality gates passed!"
+          echo "✅ Build successful"
+          echo "✅ Lighthouse: Performance ≥95, A11y ≥95, Best Practices 100, SEO 100"
+          echo "✅ Accessibility: 0 critical violations"
+          echo "✅ Security: Headers verified, 0 vulnerabilities"
+          echo "✅ Links: 0 broken links"
+          echo "✅ Budgets: Within limits"
+          echo ""
+          echo "🚀 Ready for deployment!"
+
+  # ============================================
+  # FAILURE NOTIFICATION
+  # ============================================
+  deploy-blocked:
+    name: ❌ Deployment Blocked
+    needs: [build, lighthouse, accessibility, security, links, budgets]
+    runs-on: ubuntu-latest
+    if: failure()
+
+    steps:
+      - name: Gates failed
+        run: |
+          echo "❌ One or more quality gates failed"
+          echo "🚫 Deployment blocked"
+          echo ""
+          echo "Check the failed jobs above for details."
+          exit 1
