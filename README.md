@@ -1,6 +1,12 @@
 # Memo-BauT Website
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR-BADGE-ID/deploy-status)](https://app.netlify.com/sites/YOUR-SITE-NAME/deploys)
+
 Modern, glassmorphism-styled website for Memo-BauT Garten- und Landschaftsbau.
+
+## 🚀 Quick Deploy to Netlify
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/umutcantezgel-cpu/Mehmet-abi)
 
 ## 🚀 Features
 
@@ -37,12 +43,37 @@ npm run build
 npm run preview
 ```
 
+## 🌐 Deployment
+
+### Netlify (Recommended)
+
+The site is **ready for instant deployment** to Netlify:
+
+1. Click the "Deploy to Netlify" button above
+2. Or follow the [detailed deployment guide](./NETLIFY-DEPLOYMENT.md)
+
+**Build Settings** (auto-detected from `netlify.toml`):
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node version: `18` (from `.nvmrc`)
+
+### Manual Deployment
+
+```bash
+# Build the site
+npm run build
+
+# The dist/ folder contains the static site
+# Upload to any static hosting provider
+```
+
 ## 📄 Documentation
 
+- [Netlify Deployment Guide](./NETLIFY-DEPLOYMENT.md) ⭐ **Start here!**
+- [Production Summary](./PRODUCTION-SUMMARY.md)
 - [Acceptance Dossier](./docs/ACCEPTANCE-DOSSIER.md)
 - [SLOs](./docs/ops/SLOs.md)
 - [Incident Response](./docs/ops/INCIDENT-RESPONSE.md)
-- [Deployment Guide](./docs/NETLIFY-DEPLOY.md)
 
 ## 🎨 Design Tokens
 

@@ -27,18 +27,14 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: memobaut/package-lock.json
 
       - name: Install dependencies
-        working-directory: ./memobaut
         run: npm ci
 
       - name: Build
-        working-directory: ./memobaut
         run: npm run build
 
       - name: Check build output
-        working-directory: ./memobaut
         run: |
           if [ ! -d "dist" ]; then
             echo "❌ Build failed: dist/ directory not found"
@@ -50,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
           retention-days: 1
 
   # ============================================
@@ -74,13 +70,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
 
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli@0.13.x
 
       - name: Run Lighthouse CI
-        working-directory: ./memobaut
         run: |
           lhci autorun \
             --collect.staticDistDir=./dist \
@@ -93,7 +88,6 @@ jobs:
             --upload.target=temporary-public-storage
 
       - name: Check Core Web Vitals
-        working-directory: ./memobaut
         run: |
           echo "⚡ Checking Core Web Vitals budgets..."
           # LCP ≤ 2.5s
@@ -122,13 +116,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
 
       - name: Install Pa11y CI
         run: npm install -g pa11y-ci@3.1.x
 
       - name: Run Pa11y
-        working-directory: ./memobaut
         run: |
           # Serve static files
           npx http-server dist -p 8080 -s &
@@ -144,7 +137,6 @@ jobs:
         run: npm install -g @axe-core/cli@4.8.x
 
       - name: Run Axe
-        working-directory: ./memobaut
         run: |
           npx http-server dist -p 8080 -s &
           sleep 3
@@ -177,10 +169,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
 
       - name: Check Security Headers
-        working-directory: ./memobaut
         run: |
           echo "🔒 Verifying security headers..."
 
@@ -200,12 +191,10 @@ jobs:
           fi
 
       - name: Scan for vulnerabilities (npm audit)
-        working-directory: ./memobaut
         run: |
           npm audit --audit-level=high
 
       - name: Check for unsafe inline code
-        working-directory: ./memobaut
         run: |
           echo "🔍 Scanning for unsafe inline scripts/styles..."
 
@@ -239,13 +228,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
 
       - name: Install linkinator
         run: npm install -g linkinator@5.0.x
 
       - name: Check links
-        working-directory: ./memobaut
         run: |
           npx http-server dist -p 8080 -s &
           sleep 3
@@ -283,7 +271,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist
-          path: memobaut/dist/
+          path: dist/
 
       - name: Check JS bundle size
         working-directory: ./memobaut/dist
