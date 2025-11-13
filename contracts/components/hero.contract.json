@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Hero Component Contract",
+  "componentName": "Hero",
+  "version": "1.0.0",
+  "file": "src/components/Hero.astro",
+
+  "description": "Full-width hero section with gradient background, title, subtitle, and configurable height",
+
+  "props": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Main heading text",
+      "maxLength": 80,
+      "example": "Ihr Garten. Unsere Leidenschaft."
+    },
+    "subtitle": {
+      "type": "string",
+      "required": false,
+      "description": "Supporting text below title",
+      "maxLength": 150,
+      "example": "Professioneller Garten- und Landschaftsbau in Werdorf & Umgebung seit über 20 Jahren."
+    },
+    "height": {
+      "type": "enum",
+      "required": false,
+      "default": "default",
+      "options": ["short", "default", "tall"],
+      "values": {
+        "short": "40vh",
+        "default": "60vh",
+        "tall": "80vh"
+      },
+      "description": "Height variant of the hero section"
+    },
+    "backgroundImage": {
+      "type": "string",
+      "required": false,
+      "description": "Optional background image URL",
+      "format": "url"
+    }
+  },
+
+  "styling": {
+    "background": "linear-gradient(135deg, primary-700, primary-900)",
+    "textColor": "white",
+    "textAlign": "center",
+    "padding": {
+      "mobile": "4rem 1.5rem",
+      "desktop": "6rem 1.5rem"
+    },
+    "typography": {
+      "title": {
+        "fontSize": {
+          "mobile": "2.5rem",
+          "desktop": "4rem"
+        },
+        "fontWeight": "bold",
+        "lineHeight": "tight"
+      },
+      "subtitle": {
+        "fontSize": {
+          "mobile": "1.125rem",
+          "desktop": "1.5rem"
+        },
+        "color": "primary-100",
+        "maxWidth": "42rem"
+      }
+    }
+  },
+
+  "accessibility": {
+    "wcag": "AA",
+    "requirements": [
+      "Title must be wrapped in <h1> tag",
+      "Text must have 4.5:1 contrast ratio minimum",
+      "Must be keyboard navigable if contains links",
+      "Text must be readable on all backgrounds"
+    ],
+    "aria": {
+      "role": "banner",
+      "label": "Hero section"
+    }
+  },
+
+  "performance": {
+    "criticalCss": true,
+    "lazyLoadBackground": false,
+    "maxImageSize": "200KB",
+    "imageFormat": ["WebP", "AVIF", "JPEG"]
+  },
+
+  "variants": [
+    {
+      "name": "default",
+      "description": "Standard hero for content pages",
+      "height": "60vh"
+    },
+    {
+      "name": "tall",
+      "description": "Full hero for homepage",
+      "height": "80vh"
+    },
+    {
+      "name": "short",
+      "description": "Compact hero for subpages",
+      "height": "40vh"
+    }
+  ],
+
+  "usage": [
+    {
+      "page": "Homepage",
+      "variant": "tall",
+      "example": "<Hero title=\"Ihr Garten. Unsere Leidenschaft.\" subtitle=\"...\" height=\"tall\" />"
+    },
+    {
+      "page": "Leistungen, Kontakt, Über uns",
+      "variant": "short",
+      "example": "<Hero title=\"Unsere Leistungen\" subtitle=\"...\" height=\"short\" />"
+    }
+  ],
+
+  "seo": {
+    "h1Required": true,
+    "titleTag": "Use page title, not hero title",
+    "schemaOrg": null
+  }
+}

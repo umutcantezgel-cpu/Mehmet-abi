@@ -1,0 +1,336 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "SEO Routes Contract",
+  "version": "1.0.0",
+  "description": "SEO metadata, Schema.org, and routing configuration for all pages",
+
+  "site": {
+    "url": "https://www.memobaut.de",
+    "name": "Memo-BauT",
+    "locale": "de_DE",
+    "language": "de",
+    "defaultTitle": "Memo-BauT – Garten- und Landschaftsbau Werdorf",
+    "titleTemplate": "%s | Memo-BauT",
+    "description": "Professioneller Garten- und Landschaftsbau in Werdorf, Aßlar, Wetzlar. Über 20 Jahre Erfahrung.",
+    "social": {
+      "type": "LocalBusiness",
+      "image": "/og-image.jpg",
+      "phone": "+49 176 70162293",
+      "email": "info@memobaut.de"
+    }
+  },
+
+  "routes": [
+    {
+      "path": "/",
+      "file": "src/pages/index.astro",
+      "seo": {
+        "title": "Memo-BauT – Garten- und Landschaftsbau in Werdorf & Mittelhessen",
+        "description": "Professioneller Garten- und Landschaftsbau in Werdorf, Aßlar, Wetzlar. Gartengestaltung, Pflasterarbeiten, Mauerbau mit 20+ Jahren Erfahrung.",
+        "keywords": [
+          "Gartenbau Werdorf",
+          "Landschaftsbau Aßlar",
+          "Pflasterarbeiten Wetzlar",
+          "Mauerbau Mittelhessen",
+          "Gartengestaltung",
+          "Maurermeister"
+        ],
+        "canonical": "https://www.memobaut.de/",
+        "noindex": false,
+        "nofollow": false
+      },
+      "openGraph": {
+        "type": "website",
+        "title": "Memo-BauT – Garten- und Landschaftsbau",
+        "description": "Professioneller Garten- und Landschaftsbau in Werdorf & Mittelhessen seit über 20 Jahren.",
+        "image": "/og-image.jpg",
+        "url": "https://www.memobaut.de/"
+      },
+      "schemaOrg": {
+        "type": "LocalBusiness",
+        "subtype": "ProfessionalService",
+        "name": "Memo - BauT",
+        "description": "Garten- und Landschaftsbau",
+        "telephone": "+49 176 70162293",
+        "email": "info@memobaut.de",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Falkenstraße 9",
+          "addressLocality": "Werdorf",
+          "postalCode": "35614",
+          "addressCountry": "DE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "50.5865",
+          "longitude": "8.4931"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "16:00"
+          }
+        ],
+        "priceRange": "€€",
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": "50.5865",
+            "longitude": "8.4931"
+          },
+          "geoRadius": "30000"
+        }
+      },
+      "priority": 1.0,
+      "changefreq": "weekly"
+    },
+    {
+      "path": "/leistungen",
+      "file": "src/pages/leistungen.astro",
+      "seo": {
+        "title": "Leistungen – Gartenbau, Pflaster & Mauerbau",
+        "description": "Gartenpflege, Erd- & Tiefbau, Pflasterarbeiten, Mauerbau – alle Leistungen aus einer Hand. Maurermeister-Expertise seit 2003.",
+        "keywords": [
+          "Gartengestaltung",
+          "Pflasterarbeiten",
+          "Mauerbau",
+          "Erdarbeiten",
+          "Gartenpflege",
+          "Teichbau",
+          "Natursteinmauern",
+          "Terrassen"
+        ],
+        "canonical": "https://www.memobaut.de/leistungen",
+        "noindex": false,
+        "nofollow": false
+      },
+      "openGraph": {
+        "type": "website",
+        "title": "Unsere Leistungen",
+        "description": "Gartenbau, Pflasterarbeiten, Mauerbau und mehr – alle Leistungen im Überblick.",
+        "url": "https://www.memobaut.de/leistungen"
+      },
+      "schemaOrg": {
+        "type": "Service",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Memo - BauT"
+        },
+        "serviceType": [
+          "Gartengestaltung",
+          "Pflasterarbeiten",
+          "Mauerbau",
+          "Erdarbeiten",
+          "Gartenpflege",
+          "Teichbau"
+        ],
+        "areaServed": "Werdorf, Aßlar, Wetzlar, Herborn, Gießen"
+      },
+      "priority": 0.9,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/ueber-uns",
+      "file": "src/pages/ueber-uns.astro",
+      "seo": {
+        "title": "Über uns – 20 Jahre Gartenbau-Expertise",
+        "description": "Tradition trifft Innovation. Seit 2003 Ihr Partner für Garten- und Landschaftsbau in Mittelhessen. Maurermeister Mehmet Tezgel.",
+        "keywords": [
+          "Maurermeister",
+          "Mehmet Tezgel",
+          "Gartenbau Erfahrung",
+          "Handwerksbetrieb Werdorf",
+          "20 Jahre"
+        ],
+        "canonical": "https://www.memobaut.de/ueber-uns",
+        "noindex": false,
+        "nofollow": false
+      },
+      "openGraph": {
+        "type": "website",
+        "title": "Über Memo-BauT",
+        "description": "Tradition trifft Innovation seit über 20 Jahren.",
+        "url": "https://www.memobaut.de/ueber-uns"
+      },
+      "schemaOrg": {
+        "type": "AboutPage",
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Mehmet Tezgel",
+          "jobTitle": "Maurermeister",
+          "worksFor": {
+            "@type": "LocalBusiness",
+            "name": "Memo - BauT"
+          }
+        }
+      },
+      "priority": 0.7,
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/referenzen",
+      "file": "src/pages/referenzen.astro",
+      "seo": {
+        "title": "Referenzen – Unsere Projekte",
+        "description": "Entdecken Sie unsere realisierten Gartenprojekte in Werdorf und Umgebung. Von Gartengestaltung bis Mauerbau.",
+        "keywords": [
+          "Referenzen",
+          "Gartenprojekte",
+          "Beispiele",
+          "Portfolio",
+          "Vorher Nachher"
+        ],
+        "canonical": "https://www.memobaut.de/referenzen",
+        "noindex": false,
+        "nofollow": false
+      },
+      "openGraph": {
+        "type": "website",
+        "title": "Referenzen",
+        "description": "Unsere realisierten Gartenprojekte.",
+        "url": "https://www.memobaut.de/referenzen"
+      },
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/kontakt",
+      "file": "src/pages/kontakt.astro",
+      "seo": {
+        "title": "Kontakt – Jetzt Projekt anfragen",
+        "description": "Kostenlose Erstberatung für Ihr Gartenprojekt. Telefon: 0176 70162293, E-Mail: info@memobaut.de. Einsatzgebiet: 30km um Werdorf.",
+        "keywords": [
+          "Kontakt",
+          "Anfrage",
+          "Beratung",
+          "Telefon",
+          "E-Mail",
+          "Werdorf"
+        ],
+        "canonical": "https://www.memobaut.de/kontakt",
+        "noindex": false,
+        "nofollow": false
+      },
+      "openGraph": {
+        "type": "website",
+        "title": "Kontakt",
+        "description": "Jetzt kostenlose Erstberatung anfragen.",
+        "url": "https://www.memobaut.de/kontakt"
+      },
+      "schemaOrg": {
+        "type": "ContactPage",
+        "mainEntity": {
+          "@type": "LocalBusiness",
+          "name": "Memo - BauT",
+          "telephone": "+49 176 70162293",
+          "email": "info@memobaut.de"
+        }
+      },
+      "priority": 0.8,
+      "changefreq": "monthly"
+    },
+    {
+      "path": "/impressum",
+      "file": "src/pages/impressum.astro",
+      "seo": {
+        "title": "Impressum",
+        "description": "Rechtliche Angaben und Impressum von Memo - BauT, Inh. Mehmet Tezgel, Werdorf.",
+        "keywords": [],
+        "canonical": "https://www.memobaut.de/impressum",
+        "noindex": true,
+        "nofollow": false
+      },
+      "openGraph": null,
+      "schemaOrg": null,
+      "priority": 0.1,
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/datenschutz",
+      "file": "src/pages/datenschutz.astro",
+      "seo": {
+        "title": "Datenschutzerklärung",
+        "description": "Datenschutzerklärung von Memo - BauT gemäß DSGVO und TTDSG.",
+        "keywords": [],
+        "canonical": "https://www.memobaut.de/datenschutz",
+        "noindex": true,
+        "nofollow": false
+      },
+      "openGraph": null,
+      "schemaOrg": null,
+      "priority": 0.1,
+      "changefreq": "yearly"
+    },
+    {
+      "path": "/404",
+      "file": "src/pages/404.astro",
+      "seo": {
+        "title": "Seite nicht gefunden",
+        "description": "Die angeforderte Seite existiert nicht.",
+        "keywords": [],
+        "canonical": null,
+        "noindex": true,
+        "nofollow": true
+      },
+      "openGraph": null,
+      "schemaOrg": null,
+      "priority": 0.0,
+      "changefreq": "never"
+    }
+  ],
+
+  "sitemap": {
+    "enabled": true,
+    "integration": "@astrojs/sitemap",
+    "exclude": ["/404"],
+    "changefreq": "Use per-route configuration",
+    "priority": "Use per-route configuration"
+  },
+
+  "robots": {
+    "enabled": true,
+    "rules": [
+      {
+        "userAgent": "*",
+        "allow": "/",
+        "disallow": ["/api/", "/_netlify/"]
+      }
+    ],
+    "sitemap": "https://www.memobaut.de/sitemap-index.xml"
+  },
+
+  "structuredData": {
+    "organization": {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Memo - BauT",
+      "url": "https://www.memobaut.de",
+      "logo": "https://www.memobaut.de/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+49-176-70162293",
+        "contactType": "customer service",
+        "areaServed": "DE",
+        "availableLanguage": "German"
+      },
+      "sameAs": []
+    },
+    "breadcrumbList": {
+      "enabled": false,
+      "note": "Consider implementing for subpages"
+    },
+    "faqPage": {
+      "enabled": false,
+      "note": "Consider adding FAQ section for better SEO"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "ServiceCard Component Contract",
+  "componentName": "ServiceCard",
+  "version": "1.0.0",
+  "file": "src/components/ServiceCard.astro",
+
+  "description": "Card component for displaying service offerings with icon, title, description, and link",
+
+  "props": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Service title",
+      "maxLength": 50,
+      "example": "Gartengestaltung"
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "description": "Service description",
+      "maxLength": 200,
+      "example": "Von der Planung bis zur Umsetzung – wir gestalten Ihren Traumgarten mit professionellem Know-how."
+    },
+    "icon": {
+      "type": "string",
+      "required": true,
+      "description": "Emoji or icon character",
+      "maxLength": 5,
+      "example": "🌿"
+    },
+    "link": {
+      "type": "string",
+      "required": false,
+      "description": "Link to service details or contact",
+      "format": "url-path",
+      "example": "/leistungen#gartengestaltung"
+    },
+    "details": {
+      "type": "array",
+      "required": false,
+      "description": "List of detailed features",
+      "items": "string",
+      "example": ["Gartenplanung", "Pflanzungen", "Rasenanlage"]
+    }
+  },
+
+  "styling": {
+    "base": "glass-card or card-gradient",
+    "padding": "2rem",
+    "borderRadius": "1.5rem",
+    "transition": "all 300ms ease",
+    "hover": {
+      "transform": "translateY(-4px)",
+      "shadow": "lg"
+    },
+    "icon": {
+      "size": "4rem",
+      "background": "gradient primary-500 to primary-700",
+      "borderRadius": "1rem",
+      "padding": "1rem"
+    },
+    "title": {
+      "fontSize": "1.5rem",
+      "fontWeight": "bold",
+      "color": "gray-900",
+      "marginBottom": "1rem"
+    },
+    "description": {
+      "fontSize": "1rem",
+      "color": "gray-600",
+      "lineHeight": "relaxed"
+    }
+  },
+
+  "accessibility": {
+    "wcag": "AA",
+    "requirements": [
+      "Card must be fully keyboard accessible",
+      "Links must have visible focus states",
+      "Title must use semantic heading (h2 or h3)",
+      "Icon must have decorative aria-hidden",
+      "Interactive cards need role=article",
+      "Min touch target 44x44px for links"
+    ],
+    "aria": {
+      "role": "article",
+      "label": "Use title as aria-label if interactive"
+    },
+    "keyboard": {
+      "tab": "Focus on link",
+      "enter": "Activate link",
+      "space": "Activate link"
+    }
+  },
+
+  "performance": {
+    "criticalCss": false,
+    "lazyLoad": "Below fold only",
+    "maxSize": "2KB"
+  },
+
+  "variants": [
+    {
+      "name": "overview",
+      "description": "Simple card with icon, title, description, and link",
+      "fields": ["icon", "title", "description", "link"]
+    },
+    {
+      "name": "detailed",
+      "description": "Extended card with bullet list of features",
+      "fields": ["icon", "title", "description", "details", "link"]
+    }
+  ],
+
+  "usage": [
+    {
+      "page": "Homepage",
+      "variant": "overview",
+      "count": 6,
+      "layout": "3-column grid"
+    },
+    {
+      "page": "Leistungen",
+      "variant": "detailed",
+      "count": 6,
+      "layout": "3-column grid with anchor links"
+    }
+  ],
+
+  "seo": {
+    "heading": "h2 or h3 depending on context",
+    "schemaOrg": "Consider Service schema",
+    "keywords": "Include service name in title"
+  },
+
+  "validation": {
+    "required": ["title", "description", "icon"],
+    "titleMinLength": 5,
+    "descriptionMinLength": 20,
+    "iconPattern": "^[\\u{1F300}-\\u{1F9FF}]$"
+  }
+}

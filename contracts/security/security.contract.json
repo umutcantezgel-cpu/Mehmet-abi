@@ -1,0 +1,398 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Security Contract",
+  "version": "1.0.0",
+  "description": "Security requirements, headers, and hardening specifications",
+
+  "target": {
+    "rating": "A+ on securityheaders.com",
+    "compliance": ["OWASP Top 10", "DSGVO/TTDSG"]
+  },
+
+  "headers": {
+    "current": {
+      "X-Frame-Options": {
+        "value": "DENY",
+        "status": "✅ Implemented",
+        "purpose": "Prevent clickjacking attacks",
+        "location": "netlify.toml"
+      },
+      "X-Content-Type-Options": {
+        "value": "nosniff",
+        "status": "✅ Implemented",
+        "purpose": "Prevent MIME type sniffing",
+        "location": "netlify.toml"
+      },
+      "Referrer-Policy": {
+        "value": "strict-origin-when-cross-origin",
+        "status": "✅ Implemented",
+        "purpose": "Control referrer information",
+        "location": "netlify.toml"
+      },
+      "X-XSS-Protection": {
+        "value": "1; mode=block",
+        "status": "✅ Implemented",
+        "purpose": "Enable XSS filter in older browsers",
+        "location": "netlify.toml"
+      }
+    },
+    "pending": {
+      "Content-Security-Policy": {
+        "status": "⏳ To be implemented",
+        "priority": "high",
+        "recommended": [
+          "default-src 'self'",
+          "script-src 'self' 'nonce-{RANDOM}'",
+          "style-src 'self' 'nonce-{RANDOM}'",
+          "img-src 'self' data: https:",
+          "font-src 'self' data:",
+          "connect-src 'self'",
+          "frame-src 'self' https://www.google.com",
+          "base-uri 'self'",
+          "form-action 'self'",
+          "frame-ancestors 'none'",
+          "upgrade-insecure-requests"
+        ],
+        "note": "Strict CSP - no unsafe-inline, no unsafe-eval",
+        "challenges": [
+          "Astro injects inline scripts - needs nonce support",
+          "Consider using hash-based CSP",
+          "Test thoroughly with all features"
+        ]
+      },
+      "Strict-Transport-Security": {
+        "status": "⏳ To be implemented",
+        "priority": "high",
+        "value": "max-age=31536000; includeSubDomains; preload",
+        "purpose": "Force HTTPS",
+        "prerequisites": [
+          "Valid SSL certificate (✅ Netlify provides)",
+          "All subdomains must support HTTPS",
+          "Consider HSTS preload list submission"
+        ]
+      },
+      "Cross-Origin-Embedder-Policy": {
+        "status": "⏳ To be implemented",
+        "priority": "medium",
+        "value": "require-corp",
+        "purpose": "Enable SharedArrayBuffer and high-precision timers",
+        "note": "May break third-party embeds (Google Maps) - test carefully"
+      },
+      "Cross-Origin-Opener-Policy": {
+        "status": "⏳ To be implemented",
+        "priority": "medium",
+        "value": "same-origin",
+        "purpose": "Isolate browsing context",
+        "note": "Prevents window.opener access"
+      },
+      "Cross-Origin-Resource-Policy": {
+        "status": "⏳ To be implemented",
+        "priority": "medium",
+        "value": "same-origin",
+        "purpose": "Protect resources from cross-origin reads",
+        "note": "May need 'cross-origin' for CDN assets"
+      },
+      "Permissions-Policy": {
+        "status": "⏳ To be implemented",
+        "priority": "low",
+        "recommended": [
+          "geolocation=()",
+          "microphone=()",
+          "camera=()",
+          "payment=()",
+          "usb=()",
+          "magnetometer=()",
+          "gyroscope=()",
+          "accelerometer=()"
+        ],
+        "purpose": "Disable unused browser features"
+      }
+    }
+  },
+
+  "subresourceIntegrity": {
+    "status": "⏳ To be implemented",
+    "priority": "high",
+    "description": "Generate SRI hashes for all static assets",
+    "implementation": {
+      "method": "Post-build script to generate integrity attributes",
+      "files": [
+        "All CSS files in _astro/",
+        "All JS files in _astro/",
+        "Any external scripts"
+      ],
+      "algorithm": "sha384",
+      "example": "<link rel=\"stylesheet\" href=\"/styles.css\" integrity=\"sha384-...\" crossorigin=\"anonymous\">",
+      "automation": {
+        "tool": "Custom Node.js script or webpack-subresource-integrity",
+        "timing": "After build, before deploy",
+        "location": "scripts/generate-sri.js"
+      }
+    }
+  },
+
+  "contentSecurityPolicy": {
+    "implementation": "header-based",
+    "development": {
+      "mode": "report-only",
+      "header": "Content-Security-Policy-Report-Only",
+      "reportUri": "/csp-report (or use report-uri.com)"
+    },
+    "production": {
+      "mode": "enforce",
+      "header": "Content-Security-Policy"
+    },
+    "directives": {
+      "default-src": {
+        "value": ["'self'"],
+        "note": "Fallback for unspecified directives"
+      },
+      "script-src": {
+        "value": ["'self'", "'nonce-{RANDOM}'"],
+        "note": "Use nonces for inline scripts, avoid unsafe-inline",
+        "challenge": "Astro generates inline scripts - needs nonce injection"
+      },
+      "style-src": {
+        "value": ["'self'", "'nonce-{RANDOM}'"],
+        "note": "Astro config has inlineStylesheets: 'never' - ✅ good"
+      },
+      "img-src": {
+        "value": ["'self'", "data:", "https:"],
+        "note": "Allow HTTPS images and data URIs"
+      },
+      "font-src": {
+        "value": ["'self'", "data:"],
+        "note": "System fonts + data URIs"
+      },
+      "connect-src": {
+        "value": ["'self'"],
+        "note": "API calls - currently none"
+      },
+      "frame-src": {
+        "value": ["'self'", "https://www.google.com"],
+        "note": "Allow Google Maps iframe"
+      },
+      "object-src": {
+        "value": ["'none'"],
+        "note": "Block plugins"
+      },
+      "base-uri": {
+        "value": ["'self'"],
+        "note": "Prevent base tag injection"
+      },
+      "form-action": {
+        "value": ["'self'"],
+        "note": "Netlify forms submit to self"
+      },
+      "frame-ancestors": {
+        "value": ["'none'"],
+        "note": "Prevent framing (redundant with X-Frame-Options)"
+      },
+      "upgrade-insecure-requests": {
+        "enabled": true,
+        "note": "Automatically upgrade HTTP to HTTPS"
+      }
+    }
+  },
+
+  "forms": {
+    "csrf": {
+      "status": "✅ Protected by Netlify Forms",
+      "mechanism": "Netlify honeypot + form validation"
+    },
+    "validation": {
+      "client": "HTML5 required attributes",
+      "server": "Netlify Forms built-in validation"
+    },
+    "privacy": {
+      "consent": "✅ Required checkbox before submit",
+      "storage": "Netlify Forms (GDPR compliant)",
+      "encryption": "✅ HTTPS in transit"
+    }
+  },
+
+  "dependencies": {
+    "audit": {
+      "frequency": "On every CI run",
+      "command": "npm audit",
+      "status": "✅ Automated in quality-gates.yml",
+      "action": "Block deploy on high/critical vulnerabilities"
+    },
+    "updates": {
+      "strategy": "Regular security updates",
+      "automation": "Consider Dependabot or Renovate",
+      "testing": "Test in preview environment before merging"
+    }
+  },
+
+  "cookies": {
+    "current": [
+      {
+        "name": "memo-baut-consent",
+        "purpose": "Store user consent preferences",
+        "type": "functional",
+        "duration": "1 year",
+        "secure": true,
+        "sameSite": "Lax"
+      }
+    ],
+    "security": {
+      "httpOnly": "Not needed (JavaScript-readable consent)",
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  },
+
+  "thirdParty": {
+    "googleMaps": {
+      "status": "✅ Two-click consent",
+      "privacy": "Not loaded until user consent",
+      "implementation": "data-src + click handler",
+      "dsgvo": "Compliant"
+    },
+    "netlifyForms": {
+      "status": "✅ Integrated",
+      "privacy": "Netlify privacy policy applies",
+      "dsgvo": "Netlify is GDPR compliant",
+      "dataLocation": "EU (configurable)"
+    }
+  },
+
+  "https": {
+    "status": "✅ Enforced by Netlify",
+    "certificate": "Let's Encrypt (auto-renewed)",
+    "tlsVersion": "TLS 1.2+",
+    "hsts": "⏳ To be implemented"
+  },
+
+  "inputValidation": {
+    "forms": {
+      "name": {
+        "maxLength": 100,
+        "pattern": "^[a-zA-ZäöüÄÖÜß\\s-]+$",
+        "required": true
+      },
+      "email": {
+        "type": "email",
+        "maxLength": 254,
+        "required": true
+      },
+      "phone": {
+        "type": "tel",
+        "pattern": "^[+]?[0-9\\s-()]+$",
+        "required": false
+      },
+      "message": {
+        "maxLength": 2000,
+        "required": true
+      }
+    },
+    "sanitization": "Handled by Netlify Forms"
+  },
+
+  "monitoring": {
+    "securityHeaders": {
+      "tool": "securityheaders.com",
+      "frequency": "Weekly",
+      "target": "A+ rating"
+    },
+    "sslLabs": {
+      "tool": "ssllabs.com/ssltest",
+      "frequency": "Monthly",
+      "target": "A+ rating"
+    },
+    "vulnerabilities": {
+      "tool": "npm audit + GitHub Dependabot",
+      "frequency": "On every commit",
+      "action": "Auto-create PR for updates"
+    }
+  },
+
+  "implementation_plan": {
+    "phase1": {
+      "priority": "High",
+      "items": [
+        {
+          "task": "Implement Strict-Transport-Security header",
+          "effort": "Low",
+          "location": "netlify.toml"
+        },
+        {
+          "task": "Generate SRI manifest for all assets",
+          "effort": "Medium",
+          "location": "scripts/generate-sri.js + post-build hook"
+        },
+        {
+          "task": "Implement CSP in report-only mode",
+          "effort": "High",
+          "location": "netlify.toml",
+          "testing": "Monitor reports for violations"
+        }
+      ]
+    },
+    "phase2": {
+      "priority": "Medium",
+      "items": [
+        {
+          "task": "Enable CSP enforcement",
+          "effort": "Low",
+          "prerequisites": ["No CSP violations in reports"]
+        },
+        {
+          "task": "Add COEP, COOP, CORP headers",
+          "effort": "Medium",
+          "testing": "Test Google Maps and all third-party features"
+        },
+        {
+          "task": "Add Permissions-Policy",
+          "effort": "Low",
+          "location": "netlify.toml"
+        }
+      ]
+    },
+    "phase3": {
+      "priority": "Low",
+      "items": [
+        {
+          "task": "Submit to HSTS preload list",
+          "effort": "Low",
+          "prerequisites": ["HSTS header active for 6+ months"]
+        },
+        {
+          "task": "Implement automated security scanning",
+          "effort": "Medium",
+          "tools": ["OWASP ZAP", "Snyk"]
+        }
+      ]
+    }
+  },
+
+  "testing": {
+    "automated": [
+      "npm audit in CI",
+      "Build-time security checks",
+      "Header validation tests"
+    ],
+    "manual": [
+      "securityheaders.com scan",
+      "ssllabs.com SSL test",
+      "OWASP ZAP scan (optional)",
+      "Penetration testing (optional)"
+    ]
+  },
+
+  "compliance": {
+    "owasp_top_10": {
+      "A01_broken_access_control": "✅ No authentication system",
+      "A02_cryptographic_failures": "✅ HTTPS enforced",
+      "A03_injection": "✅ Static site, no DB, Netlify Forms sanitization",
+      "A04_insecure_design": "✅ Security-first architecture",
+      "A05_security_misconfiguration": "⏳ Headers to be enhanced",
+      "A06_vulnerable_components": "✅ npm audit automated",
+      "A07_identification_auth_failures": "✅ No auth system",
+      "A08_software_data_integrity": "⏳ SRI to be implemented",
+      "A09_logging_monitoring": "⏳ Can be enhanced",
+      "A10_ssrf": "✅ No server-side requests"
+    }
+  }
+}

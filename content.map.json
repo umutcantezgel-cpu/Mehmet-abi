@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Memo-BauT Content Mapping",
+  "version": "1.0.0",
+  "generated": "2025-11-13",
+  "source": "Existing Astro Repository",
+  "status": "✅ All content extracted from repository",
+
+  "business": {
+    "name": "Memo - BauT",
+    "owner": "Mehmet Tezgel",
+    "title": "Maurermeister",
+    "founded": 2003,
+    "experience_years": "20+",
+    "domain": "https://www.memobaut.de",
+    "industry": "Garten- und Landschaftsbau",
+    "service_radius": "30 km um Werdorf"
+  },
+
+  "contact": {
+    "phone": "+49 176 70162293",
+    "email": "info@memobaut.de",
+    "address": {
+      "street": "Falkenstraße 9",
+      "postal_code": "35614",
+      "city": "Werdorf",
+      "country": "Deutschland"
+    },
+    "hours": {
+      "weekdays": "Mo–Fr: 09:00–18:00 Uhr",
+      "saturday": "Sa: 09:00–16:00 Uhr",
+      "note": "Termine nach Vereinbarung"
+    }
+  },
+
+  "service_area": {
+    "primary": "Werdorf",
+    "radius": "30 km",
+    "cities": [
+      "Werdorf",
+      "Aßlar",
+      "Wetzlar",
+      "Herborn",
+      "Gießen",
+      "Dillenburg",
+      "Solms"
+    ]
+  },
+
+  "pages": [
+    {
+      "id": "home",
+      "path": "/",
+      "file": "src/pages/index.astro",
+      "title": "Memo-BauT – Garten- und Landschaftsbau in Werdorf & Mittelhessen",
+      "description": "Professioneller Garten- und Landschaftsbau in Werdorf, Aßlar, Wetzlar. Gartengestaltung, Pflasterarbeiten, Mauerbau mit 20+ Jahren Erfahrung.",
+      "sections": [
+        {
+          "type": "hero",
+          "title": "Ihr Garten. Unsere Leidenschaft.",
+          "subtitle": "Professioneller Garten- und Landschaftsbau in Werdorf & Umgebung seit über 20 Jahren."
+        },
+        {
+          "type": "features",
+          "title": "Warum Memo-BauT?",
+          "subtitle": "Qualität, Erfahrung und Kundenzufriedenheit seit 2003",
+          "items": [
+            {
+              "icon": "🌱",
+              "title": "Nachhaltig",
+              "description": "Umweltfreundliche Materialien und naturnahe Gestaltung für langlebige Ergebnisse."
+            },
+            {
+              "icon": "⚡",
+              "title": "Zuverlässig",
+              "description": "Pünktliche Umsetzung und professionelle Ausführung durch erfahrene Fachkräfte."
+            },
+            {
+              "icon": "✓",
+              "title": "Qualität",
+              "description": "Maurermeister-Expertise und über 20 Jahre Erfahrung im Gartenbau."
+            }
+          ]
+        },
+        {
+          "type": "services_overview",
+          "title": "Unsere Leistungen",
+          "subtitle": "Von der Gartenplanung bis zur Pflege – wir bieten alle Leistungen rund um Ihren Garten aus einer Hand."
+        },
+        {
+          "type": "about_preview",
+          "title": "Tradition trifft Innovation",
+          "stats": [
+            { "number": "20+", "label": "Jahre Erfahrung" },
+            { "number": "500+", "label": "Zufriedene Kunden" }
+          ]
+        },
+        {
+          "type": "cta",
+          "title": "Bereit für Ihr Projekt?",
+          "text": "Lassen Sie uns gemeinsam Ihren Traumgarten verwirklichen. Kontaktieren Sie uns für eine kostenlose Erstberatung."
+        }
+      ]
+    },
+    {
+      "id": "leistungen",
+      "path": "/leistungen",
+      "file": "src/pages/leistungen.astro",
+      "title": "Leistungen – Gartenbau, Pflaster & Mauerbau",
+      "description": "Gartenpflege, Erd- & Tiefbau, Pflasterarbeiten, Mauerbau – alle Leistungen aus einer Hand. Maurermeister-Expertise seit 2003.",
+      "services": [
+        {
+          "id": "gartengestaltung",
+          "title": "Gartengestaltung",
+          "icon": "🌿",
+          "description": "Individuelle Gartenplanung und -gestaltung nach Ihren Wünschen. Von modernen Designgärten bis zu naturnahen Landschaftsgärten – wir setzen Ihre Vision um.",
+          "details": [
+            "Gartenplanung und Beratung",
+            "Pflanzungen und Beet-Gestaltung",
+            "Rasenanlage und Rollrasen",
+            "Hochbeete und Gemüsegärten"
+          ]
+        },
+        {
+          "id": "pflasterarbeiten",
+          "title": "Pflasterarbeiten",
+          "icon": "🏗️",
+          "description": "Professionelle Pflasterung für Einfahrten, Terrassen und Wege. Wir verarbeiten Naturstein, Betonpflaster und Klinker in höchster Qualität.",
+          "details": [
+            "Einfahrten und Parkplätze",
+            "Terrassen und Sitzplätze",
+            "Gartenwege und Plätze",
+            "Treppenanlagen"
+          ]
+        },
+        {
+          "id": "mauerbau",
+          "title": "Mauerbau",
+          "icon": "🧱",
+          "description": "Maurermeister-Expertise für Gartenmauern jeder Art. Stützmauern, Natursteinmauern oder moderne Sichtschutzmauern – solide gebaut für Generationen.",
+          "details": [
+            "Natursteinmauern",
+            "Trockenmauern",
+            "Stützmauern",
+            "Sichtschutzmauern"
+          ]
+        },
+        {
+          "id": "erdarbeiten",
+          "title": "Erd- & Tiefbau",
+          "icon": "🚜",
+          "description": "Grundlegende Erdarbeiten für Ihr Bauprojekt. Aushub, Geländemodellierung und Fundamentarbeiten mit moderner Technik.",
+          "details": [
+            "Aushubarbeiten",
+            "Geländemodellierung",
+            "Drainage und Entwässerung",
+            "Fundamentarbeiten"
+          ]
+        },
+        {
+          "id": "gartenpflege",
+          "title": "Gartenpflege",
+          "icon": "🌻",
+          "description": "Regelmäßige Pflege und Wartung Ihrer Außenanlagen. Damit Ihr Garten dauerhaft gepflegt und schön bleibt.",
+          "details": [
+            "Rasenpflege und Mähen",
+            "Heckenschnitt",
+            "Beetpflege",
+            "Winterdienst (optional)"
+          ]
+        },
+        {
+          "id": "teichbau",
+          "title": "Teichbau",
+          "icon": "💧",
+          "description": "Individuelle Gartenteiche und Wasserspiele. Von der Planung über den Bau bis zur Bepflanzung – alles aus einer Hand.",
+          "details": [
+            "Naturteiche",
+            "Schwimmteiche",
+            "Bachläufe",
+            "Wasserspiele und Brunnen"
+          ]
+        }
+      ],
+      "process": [
+        { "step": "1", "title": "Beratung", "description": "Kostenlose Erstberatung vor Ort" },
+        { "step": "2", "title": "Planung", "description": "Detaillierte Planung und Angebot" },
+        { "step": "3", "title": "Umsetzung", "description": "Professionelle Ausführung" },
+        { "step": "4", "title": "Abnahme", "description": "Gemeinsame Endabnahme" }
+      ]
+    },
+    {
+      "id": "ueber-uns",
+      "path": "/ueber-uns",
+      "file": "src/pages/ueber-uns.astro",
+      "title": "Über uns – 20 Jahre Gartenbau-Expertise",
+      "description": "Tradition trifft Innovation. Seit 2003 Ihr Partner für Garten- und Landschaftsbau in Mittelhessen. Maurermeister Mehmet Tezgel.",
+      "sections": [
+        {
+          "type": "story",
+          "title": "Unsere Geschichte",
+          "content": [
+            "Gegründet im Jahr 2003 von Maurermeister Mehmet Tezgel, hat sich Memo-BauT zu einem führenden Anbieter für Garten- und Landschaftsbau in Mittelhessen entwickelt.",
+            "Was als kleiner Handwerksbetrieb begann, ist heute ein Team von erfahrenen Fachkräften, die mit Leidenschaft und Expertise Gärten und Außenanlagen gestalten.",
+            "Unser Erfolgsrezept: Persönliche Beratung, hochwertige Materialien und handwerkliche Perfektion – kombiniert mit fairen Preisen und Termintreue."
+          ]
+        },
+        {
+          "type": "values",
+          "title": "Unsere Werte",
+          "items": [
+            { "icon": "🎯", "title": "Qualität", "description": "Maurermeister-Expertise und höchste Ansprüche an Material und Ausführung." },
+            { "icon": "🤝", "title": "Zuverlässigkeit", "description": "Pünktliche Umsetzung und transparente Kommunikation während des gesamten Projekts." },
+            { "icon": "💚", "title": "Nachhaltigkeit", "description": "Umweltfreundliche Materialien und naturnahe Gestaltung für langlebige Ergebnisse." },
+            { "icon": "⭐", "title": "Kundenzufriedenheit", "description": "Ihre Zufriedenheit ist unser Erfolg – darum legen wir Wert auf persönliche Betreuung." },
+            { "icon": "🛠️", "title": "Handwerkskunst", "description": "Traditionelles Handwerk kombiniert mit modernen Techniken und Maschinen." },
+            { "icon": "📍", "title": "Regional", "description": "Verwurzelt in Mittelhessen – kurze Wege und lokale Expertise." }
+          ]
+        },
+        {
+          "type": "team",
+          "title": "Unser Team",
+          "members": [
+            {
+              "name": "Mehmet Tezgel",
+              "role": "Inhaber & Maurermeister",
+              "description": "Mit über 20 Jahren Erfahrung im Garten- und Landschaftsbau leitet Mehmet Tezgel jedes Projekt persönlich und steht für Qualität und Kundenzufriedenheit."
+            }
+          ]
+        },
+        {
+          "type": "stats",
+          "items": [
+            { "number": "20+", "label": "Jahre Erfahrung" },
+            { "number": "500+", "label": "Projekte umgesetzt" },
+            { "number": "30km", "label": "Einsatzradius" },
+            { "number": "100%", "label": "Kundenzufriedenheit" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "referenzen",
+      "path": "/referenzen",
+      "file": "src/pages/referenzen.astro",
+      "title": "Referenzen – Unsere Projekte",
+      "description": "Entdecken Sie unsere realisierten Gartenprojekte in Werdorf und Umgebung. Von Gartengestaltung bis Mauerbau.",
+      "note": "Basic reference page exists - can be enhanced with project gallery"
+    },
+    {
+      "id": "kontakt",
+      "path": "/kontakt",
+      "file": "src/pages/kontakt.astro",
+      "title": "Kontakt – Jetzt Projekt anfragen",
+      "description": "Kostenlose Erstberatung für Ihr Gartenprojekt. Telefon: 0176 70162293, E-Mail: info@memobaut.de. Einsatzgebiet: 30km um Werdorf.",
+      "features": [
+        "Netlify Forms integration",
+        "Honeypot anti-spam",
+        "DSGVO-compliant checkbox",
+        "Two-click Google Maps (consent-first)",
+        "Direct contact information",
+        "Service area display"
+      ],
+      "form_fields": [
+        { "name": "name", "type": "text", "required": true },
+        { "name": "email", "type": "email", "required": true },
+        { "name": "phone", "type": "tel", "required": false },
+        { "name": "message", "type": "textarea", "required": true },
+        { "name": "privacy", "type": "checkbox", "required": true }
+      ]
+    },
+    {
+      "id": "impressum",
+      "path": "/impressum",
+      "file": "src/pages/impressum.astro",
+      "title": "Impressum",
+      "description": "Rechtliche Angaben und Impressum von Memo - BauT, Inh. Mehmet Tezgel, Werdorf.",
+      "noindex": true,
+      "sections": [
+        "Angaben gemäß § 5 TMG",
+        "Kontakt",
+        "Umsatzsteuer-ID",
+        "Berufsbezeichnung",
+        "EU-Streitschlichtung",
+        "Verbraucherstreitbeilegung",
+        "Haftung für Inhalte",
+        "Haftung für Links",
+        "Urheberrecht"
+      ]
+    },
+    {
+      "id": "datenschutz",
+      "path": "/datenschutz",
+      "file": "src/pages/datenschutz.astro",
+      "title": "Datenschutzerklärung",
+      "description": "Datenschutzerklärung von Memo - BauT gemäß DSGVO und TTDSG.",
+      "noindex": true,
+      "note": "DSGVO-compliant privacy policy exists"
+    },
+    {
+      "id": "404",
+      "path": "/404",
+      "file": "src/pages/404.astro",
+      "title": "Seite nicht gefunden",
+      "description": "Die angeforderte Seite existiert nicht.",
+      "note": "Custom 404 page with navigation back to home"
+    }
+  ],
+
+  "components": [
+    {
+      "name": "BaseLayout",
+      "file": "src/layouts/BaseLayout.astro",
+      "description": "Main layout with Schema.org structured data, SEO meta tags, navigation, footer",
+      "features": [
+        "Responsive navigation",
+        "Schema.org LocalBusiness markup",
+        "Meta tags (title, description, OG tags)",
+        "Footer with links and contact info",
+        "Scroll animations",
+        "Mobile menu"
+      ]
+    },
+    {
+      "name": "Hero",
+      "file": "src/components/Hero.astro",
+      "description": "Hero section with title, subtitle, and configurable height",
+      "props": ["title", "subtitle", "height"]
+    },
+    {
+      "name": "ServiceCard",
+      "file": "src/components/ServiceCard.astro",
+      "description": "Card component for displaying services",
+      "props": ["title", "description", "icon", "link"]
+    },
+    {
+      "name": "FeatureSection",
+      "file": "src/components/FeatureSection.astro",
+      "description": "Section displaying feature grid",
+      "props": ["title", "subtitle", "features"]
+    },
+    {
+      "name": "ConsentBanner",
+      "file": "src/components/ConsentBanner.astro",
+      "description": "DSGVO-compliant cookie consent banner",
+      "features": [
+        "LocalStorage-based consent tracking",
+        "Accept/Decline options",
+        "Privacy policy link"
+      ]
+    }
+  ],
+
+  "styles": {
+    "framework": "Tailwind CSS 3.4.1",
+    "design_system": "Glassmorphism",
+    "custom_utilities": {
+      "file": "src/styles/global.css",
+      "features": [
+        ".glass - Glassmorphism base",
+        ".glass-card - Card with glass effect and padding",
+        ".card-gradient - Gradient card",
+        ".btn-primary - Primary button",
+        ".btn-secondary - Secondary button",
+        ".text-gradient - Gradient text",
+        ".shadow-smooth - Smooth shadow",
+        ".animate-on-scroll - Scroll animation",
+        "Container utilities",
+        "Section spacing"
+      ]
+    },
+    "color_scheme": {
+      "primary": "Green tones (500-900)",
+      "accent": "Primary complementary colors",
+      "backgrounds": "White, gray shades, gradient overlays"
+    }
+  },
+
+  "tech_stack": {
+    "framework": "Astro 4.16.0",
+    "css": "Tailwind CSS 3.4.1",
+    "integrations": [
+      "@astrojs/tailwind",
+      "@astrojs/sitemap"
+    ],
+    "node_version": "18",
+    "build_output": "dist/",
+    "routing": "Directory format (clean URLs)",
+    "trailing_slash": "ignore"
+  },
+
+  "deployment": {
+    "platform": "Netlify",
+    "build_command": "npm run build",
+    "publish_directory": "dist",
+    "node_version": "18",
+    "features": [
+      "Netlify Forms",
+      "Custom 404 redirect",
+      "Security headers",
+      "Cache headers for static assets",
+      "Clean URL support"
+    ],
+    "files": [
+      "netlify.toml",
+      "public/_redirects",
+      "public/_headers",
+      ".nvmrc",
+      ".gitattributes"
+    ]
+  },
+
+  "seo": {
+    "sitemap": "Automatically generated via @astrojs/sitemap",
+    "schema_org": "LocalBusiness structured data in BaseLayout",
+    "meta_tags": "Title, description, OG tags on all pages",
+    "robots": "Noindex on legal pages (Impressum, Datenschutz)"
+  },
+
+  "security": {
+    "headers": {
+      "X-Frame-Options": "DENY",
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "X-XSS-Protection": "1; mode=block"
+    },
+    "forms": {
+      "honeypot": true,
+      "netlify_forms": true,
+      "privacy_checkbox": true
+    },
+    "consent": {
+      "banner": true,
+      "two_click_embeds": "Google Maps",
+      "localstorage": true
+    }
+  },
+
+  "compliance": {
+    "dsgvo": true,
+    "impressum": true,
+    "datenschutz": true,
+    "consent_management": "ConsentBanner component",
+    "form_privacy": "Required checkbox with link to privacy policy"
+  },
+
+  "rights_status": {
+    "content": "✅ Original business content",
+    "code": "✅ Custom Astro implementation",
+    "images": "ℹ️ Emoji icons (no copyright issues)",
+    "fonts": "✅ System fonts",
+    "external_services": [
+      "Google Maps (two-click consent)",
+      "Netlify Forms"
+    ],
+    "third_party": "None",
+    "license": "Proprietary - Memo-BauT business content"
+  },
+
+  "quality": {
+    "performance": {
+      "total_size": "~212 KB",
+      "inline_styles": "never (CSP compliance)",
+      "css_code_split": false,
+      "manual_chunks": "undefined"
+    },
+    "accessibility": {
+      "semantic_html": true,
+      "focus_states": true,
+      "aria_labels": "On interactive elements",
+      "keyboard_navigation": true
+    },
+    "ci_cd": {
+      "file": ".github/workflows/quality-gates.yml",
+      "checks": [
+        "npm audit",
+        "Build test",
+        "Type checking (TypeScript)"
+      ]
+    }
+  },
+
+  "todos": {
+    "enhancements": [
+      "Add project gallery to /referenzen with before/after images",
+      "Consider adding testimonials section",
+      "Add structured data for services (Service schema)",
+      "Consider adding FAQ section for SEO",
+      "Add blog/news section (optional)",
+      "Enhance CI/CD with Lighthouse CI",
+      "Add SRI manifest for enhanced security",
+      "Consider adding more detailed service subpages"
+    ],
+    "completed": [
+      "✅ Netlify deployment ready",
+      "✅ Routing fixed (clean URLs)",
+      "✅ DSGVO compliance",
+      "✅ Contact form with Netlify integration",
+      "✅ Two-click consent for Google Maps",
+      "✅ Security headers",
+      "✅ Custom 404 page",
+      "✅ Sitemap generation",
+      "✅ Schema.org structured data",
+      "✅ Mobile responsive design",
+      "✅ Glassmorphism design system",
+      "✅ Quality gates CI/CD"
+    ]
+  }
+}
