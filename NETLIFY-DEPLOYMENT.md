@@ -7,11 +7,16 @@ Diese Anleitung zeigt dir, wie du die Memo-BauT Website direkt von GitHub zu Net
 Das Repository ist **vollständig deploy-ready** für Netlify:
 
 - ✅ `netlify.toml` konfiguriert
+- ✅ `public/_redirects` für korrektes Routing
 - ✅ Security Headers in `public/_headers`
 - ✅ Node.js Version in `.nvmrc` festgelegt
 - ✅ Build-Befehl: `npm run build`
 - ✅ Publish-Verzeichnis: `dist`
 - ✅ Alle Abhängigkeiten in `package.json`
+- ✅ Clean URLs mit Trailing Slash Support
+- ✅ Custom 404-Seite
+
+> **💡 Routing Fix:** Das "Page not found" Problem wurde behoben! Siehe [ROUTING-FIX.md](./ROUTING-FIX.md) für Details.
 
 ## 🔗 Schritt 1: GitHub Repository verbinden
 

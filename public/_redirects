@@ -1,0 +1,4 @@
+# Netlify Redirects for Memo-BauT Website
+
+# Custom 404 - Must be last rule
+/*  /404.html  404

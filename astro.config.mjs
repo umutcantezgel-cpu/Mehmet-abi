@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://www.memobaut.de',
+  trailingSlash: 'ignore', // Handle both /page and /page/ URLs
   integrations: [
     tailwind({
       config: { applyBaseStyles: false }
@@ -11,7 +12,8 @@ export default defineConfig({
     sitemap()
   ],
   build: {
-    inlineStylesheets: 'never' // CSP compliance
+    inlineStylesheets: 'never', // CSP compliance
+    format: 'directory' // Ensures clean URLs (page/index.html)
   },
   vite: {
     build: {
