@@ -11,14 +11,51 @@
   to = "/404.html"
   status = 404
 
-# Security Headers
+# Enhanced Security Headers
 [[headers]]
   for = "/*"
   [headers.values]
+    # HSTS - Force HTTPS for 1 year
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Frame Protection
     X-Frame-Options = "DENY"
+
+    # MIME Type Sniffing Protection
     X-Content-Type-Options = "nosniff"
+
+    # Referrer Policy
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # XSS Protection (legacy, but still useful)
     X-XSS-Protection = "1; mode=block"
+
+    # Content Security Policy - Allows inline styles/scripts (Astro requirement)
+    Content-Security-Policy = '''
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: https:;
+      font-src 'self' data:;
+      connect-src 'self';
+      frame-src 'self' https://www.google.com;
+      base-uri 'self';
+      form-action 'self';
+      frame-ancestors 'none';
+      upgrade-insecure-requests
+    '''
+
+    # Permissions Policy - Disable unused browser features
+    Permissions-Policy = '''
+      geolocation=(),
+      microphone=(),
+      camera=(),
+      payment=(),
+      usb=(),
+      magnetometer=(),
+      gyroscope=(),
+      accelerometer=()
+    '''
 
 # Cache Headers for Static Assets
 [[headers]]
@@ -40,3 +77,15 @@
   for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Font Files Caching
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML Pages - Short Cache for Updates
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

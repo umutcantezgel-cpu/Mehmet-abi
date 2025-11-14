@@ -189,74 +189,95 @@ const companyData = {
             </li>
           </ul>
 
-          <!-- Mobile Menu Button -->
+          <!-- Mobile Menu Button with Icon Morphing -->
           <button
             id="mobile-menu-btn"
-            class="md:hidden glass-nav focus-ring"
+            class="md:hidden glass-nav focus-ring relative w-12 h-12 flex items-center justify-center"
             aria-label="Menü öffnen"
             aria-expanded="false"
             aria-controls="mobile-menu"
           >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+            <div class="hamburger-icon">
+              <span class="line line-1"></span>
+              <span class="line line-2"></span>
+              <span class="line line-3"></span>
+            </div>
           </button>
         </div>
 
-        <!-- Mobile Menu -->
+        <!-- Premium Mobile Menu with Slide-In -->
         <div
           id="mobile-menu"
-          class="hidden md:hidden mt-4 glass-dark rounded-2xl p-6 animate-slide-down"
+          class="mobile-menu fixed inset-0 z-50 md:hidden pointer-events-none"
+          aria-hidden="true"
           role="menu"
         >
-          <ul class="space-y-2">
-            <li>
-              <a
-                href="/leistungen"
-                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
-                role="menuitem"
+          <!-- Backdrop -->
+          <div class="mobile-menu-backdrop absolute inset-0 bg-gray-900/50 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+
+          <!-- Slide-in Panel -->
+          <div class="mobile-menu-panel absolute top-0 right-0 h-full w-80 max-w-[85vw] glass-overlay shadow-2xl transform translate-x-full transition-transform duration-400">
+            <div class="p-6 h-full flex flex-col">
+              <!-- Close Button -->
+              <button
+                id="mobile-menu-close"
+                class="self-end glass-subtle rounded-full p-3 mb-6 focus-ring hover:bg-white/50 transition-all"
+                aria-label="Menü schließen"
               >
-                Leistungen
-              </a>
-            </li>
-            <li>
-              <a
-                href="/ueber-uns"
-                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
-                role="menuitem"
-              >
-                Über uns
-              </a>
-            </li>
-            <li>
-              <a
-                href="/referenzen"
-                class="block px-4 py-3 rounded-lg text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all"
-                role="menuitem"
-              >
-                Referenzen
-              </a>
-            </li>
-            <li>
-              <a
-                href="/kontakt"
-                class="block btn-primary w-full text-center"
-                role="menuitem"
-              >
-                Kontakt
-              </a>
-            </li>
-          </ul>
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              <!-- Menu Links with Stagger Animation -->
+              <ul class="mobile-menu-links space-y-2 flex-1">
+                <li style="--delay: 0.1s;">
+                  <a
+                    href="/leistungen"
+                    class="block px-6 py-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all text-lg font-semibold"
+                    role="menuitem"
+                  >
+                    Leistungen
+                  </a>
+                </li>
+                <li style="--delay: 0.15s;">
+                  <a
+                    href="/ueber-uns"
+                    class="block px-6 py-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all text-lg font-semibold"
+                    role="menuitem"
+                  >
+                    Über uns
+                  </a>
+                </li>
+                <li style="--delay: 0.2s;">
+                  <a
+                    href="/referenzen"
+                    class="block px-6 py-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-900 focus-ring transition-all text-lg font-semibold"
+                    role="menuitem"
+                  >
+                    Referenzen
+                  </a>
+                </li>
+                <li style="--delay: 0.25s;">
+                  <a
+                    href="/kontakt"
+                    class="block btn-primary btn-lg w-full text-center mt-4"
+                    role="menuitem"
+                  >
+                    Kontakt
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Contact Info in Menu -->
+              <div class="mt-auto pt-6 border-t border-gray-200" style="--delay: 0.3s;">
+                <p class="text-sm text-gray-600 mb-2">Rufen Sie uns an:</p>
+                <a href="tel:+4917670162293" class="text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+                  +49 176 70162293
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
@@ -336,19 +357,69 @@ const companyData = {
       </div>
     </footer>
 
-    <!-- Mobile Menu Script -->
+    <!-- Premium Mobile Menu Script -->
     <script>
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      const mobileMenuBackdrop = mobileMenu?.querySelector('.mobile-menu-backdrop');
 
-      if (mobileMenuBtn && mobileMenu) {
+      function openMobileMenu() {
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.setAttribute('aria-expanded', 'true');
+          mobileMenuBtn.setAttribute('aria-label', 'Menü schließen');
+          mobileMenu.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+      }
+
+      function closeMobileMenu() {
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+          mobileMenuBtn.setAttribute('aria-label', 'Menü öffnen');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = ''; // Restore scroll
+        }
+      }
+
+      // Open menu
+      if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
           const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-          mobileMenuBtn.setAttribute('aria-expanded', String(!isExpanded));
-          mobileMenu.classList.toggle('hidden');
+          if (isExpanded) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
         });
       }
 
+      // Close menu via close button
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+      }
+
+      // Close menu when clicking backdrop
+      if (mobileMenuBackdrop) {
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+      }
+
+      // Close menu when clicking a link
+      const menuLinks = mobileMenu?.querySelectorAll('a');
+      menuLinks?.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+      });
+
+      // Close menu on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenu?.getAttribute('aria-hidden') === 'false') {
+          closeMobileMenu();
+        }
+      });
+    </script>
+
+    <!-- Additional Scripts -->
+    <script>
       // Scroll to top on page load (for accessibility)
       window.addEventListener('load', () => {
         window.scrollTo(0, 0);
